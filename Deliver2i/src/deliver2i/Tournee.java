@@ -35,10 +35,10 @@ public class Tournee implements Serializable {
     private Date Date;
 
     @Column(nullable = false)
-    private Date dureeMin;
+    private Date dateDebut;
 
     @Column(nullable = false)
-    private Date dureeMax;
+    private Date dateFin;
 
     @Column(nullable = false)
     private Instance monInstance;
@@ -55,13 +55,7 @@ public class Tournee implements Serializable {
         return nom;
     }
 
-    public Date getDureeMin() {
-        return dureeMin;
-    }
-
-    public Date getDureeMax() {
-        return dureeMax;
-    }
+   
 
     public Instance getMonInstance() {
         return monInstance;
@@ -69,19 +63,18 @@ public class Tournee implements Serializable {
 
     public Tournee() throws ParseException {
         this.nom = "Ma tournée test";
-        DateFormat format = new SimpleDateFormat("mm");
-        DateFormat format2 = new SimpleDateFormat("dd/MM/yyyy");
-        this.dureeMax = format.parse("30");
-        this.dureeMin = format.parse("5");
-        this.Date = format2.parse("03/12/2019");
+        DateFormat format =new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        this.Date = format.parse("03/12/2019 00:00");
+        this.dateDebut=format.parse("03/12/2019 12:00");
+        this.dateFin=format.parse("03/12/2019 20:00");
     }
 
-    public Tournee(String nom, Date Date, Date dureeMin, Date dureeMax) throws ParseException {
+    public Tournee(String nom, Date Date, Date dateDebut, Date dateFin) throws ParseException {
         this();
         this.nom = nom;
         this.Date = Date;
-        this.dureeMin = dureeMin;
-        this.dureeMax = dureeMax;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
     }
 
     @Override
@@ -104,19 +97,21 @@ public class Tournee implements Serializable {
         return true;
     }
 
-    @Override
+ @Override
     public String toString() {
-        return "Tournee{" + "nom=" + nom + ", Date=" + Date + ", dureeMin=" + dureeMin + ", dureeMax=" + dureeMax + ", monInstance=" + monInstance + '}';
+        return "Tournee{" + "id=" + id + ", nom=" + nom + ", Date=" + Date + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", monInstance=" + monInstance + '}';
     }
+
 
     public static void main(String[] args) throws ParseException {
 
         Tournee t1 = new Tournee();
         System.out.println(t1);
-        DateFormat format2 = new SimpleDateFormat("dd/MM/yyyy");
-        DateFormat format = new SimpleDateFormat("mm");
-        Tournee t2 = new Tournee("Ma deuxième tournée", format2.parse("04/12/2019 12:12:12"), format.parse("5"), format.parse("30"));
+        DateFormat format2 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        Tournee t2= new Tournee("Ma deuxième tournée", format2.parse("03/12/2019 00:00"), format2.parse("03/12/2019 08:00"), format2.parse("03/12/2019 12:00"));
         System.out.println(t2);
     }
+
+   
 
 }
