@@ -32,7 +32,7 @@ public class Instance implements Serializable {
 
     private Date dureeMin;
 
-//======getter====================================
+//=====================Getters==============================
     public Long getId() {
         return id;
     }
@@ -53,7 +53,7 @@ public class Instance implements Serializable {
         return dureeMin;
     }
 
-//=======setter==================================
+//================Setters==================================
     public void setId(Long id) {
         this.id = id;
     }
@@ -74,7 +74,7 @@ public class Instance implements Serializable {
         this.dureeMin = dureeMin;
     }
 
-//===============Constructor==========================    
+//===============Constructors==========================    
     public Instance() {
         nom = null;
         date = null;
@@ -89,7 +89,7 @@ public class Instance implements Serializable {
         dureeMin = min;
     }
 
-//===============Methode==============================
+//===============Methodes==============================
     @Override
     public int hashCode() {
         int hash = 0;
@@ -112,7 +112,7 @@ public class Instance implements Serializable {
 
     @Override
     public String toString() {
-        return "deliver2i.Instance[ id=" + id + " ]";
+        return "deliver2i.Instance[ id=" + id + " nom" + nom + " date " + date + " ]";
     }
 
 }

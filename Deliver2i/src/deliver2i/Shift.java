@@ -5,9 +5,15 @@
  */
 package deliver2i;
 
+import java.beans.Statement;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
+import javax.management.Query;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,15 +29,14 @@ public class Shift implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    private Date dateDebut;
-    
-    private Date dateFin;
-    
-    private Solution solution;
-    
-//=============Getter===================
 
+    private Date dateDebut;
+
+    private Date dateFin;
+
+    private Solution solution;
+
+//=============Getters===================
     public Long getId() {
         return id;
     }
@@ -47,9 +52,8 @@ public class Shift implements Serializable {
     public Solution getSolution() {
         return solution;
     }
-    
-//==============Setter=======================
-    
+
+//==============Setters=======================
     public void setId(Long id) {
         this.id = id;
     }
@@ -66,20 +70,36 @@ public class Shift implements Serializable {
         this.solution = solution;
     }
 //============Constructors=======================
-    public Shift(){
-        dateDebut=null;
-        dateFin=null;
-        solution=null;
+
+    public Shift() {
+        dateDebut = null;
+        dateFin = null;
+        solution = null;
     }
-    
-     public Shift(Date debut,Date fin,Solution solu){
-        dateDebut=debut;
-        dateFin=fin;
-        solution=solu;
+
+    public Shift(Date debut, Date fin, Solution solu) {
+        dateDebut = debut;
+        dateFin = fin;
+        solution = solu;
     }
-    
-    
-//=============Methode====================
+
+//=============Methodes====================
+    public long duree() { //retourne la durée du shift
+        long a = this.dateFin.getTime() - this.dateDebut.getTime(); //getTime convert date to Timestamp
+        return a / 60; //en minute
+    }
+
+    public int tempsMort(EntityManager em) {
+        javax.persistence.Query q = em.createQuery("SELECT dateDebut,dateFin FROM Tournee WHERE shift = :id"); //syntaxe JPQL
+        q.setParameter("id", id);
+        Set<Tournee> list = (Set<Tournee>) q.getResultList();
+        int sum = 0;
+        for(Tournee test:list){
+            sum+=test.duree();
+        }
+          int a = (int) (this.duree()-sum);
+        return a;
+    }
 
     @Override
     public int hashCode() {
@@ -103,7 +123,7 @@ public class Shift implements Serializable {
 
     @Override
     public String toString() {
-        return "deliver2i.Shift[ id=" + id + " ]";
+        return "deliver2i.Shift[ id=" + id + " dateDebut= " + dateDebut + " dateFin= " + dateFin + " ]";
     }
-    
+
 }

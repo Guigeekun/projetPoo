@@ -76,6 +76,11 @@ public class Tournee implements Serializable {
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
     }
+    
+    public long duree() { //retourne la durée du shift
+        long a = this.dateFin.getTime() - this.dateDebut.getTime(); //getTime convert date to Timestamp
+        return a / 60; //en minute
+    }
 
     @Override
     public int hashCode() {
