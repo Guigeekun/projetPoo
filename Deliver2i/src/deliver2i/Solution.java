@@ -6,6 +6,7 @@
 package deliver2i;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,8 +21,13 @@ public class Solution implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+ @Column(nullable = false)
+    private double cout;
+
+    @Column( nullable = false)
+    private Instance monInstance;
 
     public Long getId() {
         return id;
@@ -30,7 +36,23 @@ public class Solution implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+    
+    public double getCout() {
+        return cout;
+    }
 
+    public Instance getMonInstance() {
+        return monInstance;
+    }
+
+    public Solution() {
+        this.cout=0.0;
+        this.monInstance= new Instance();
+    }
+    
+    
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -53,7 +75,12 @@ public class Solution implements Serializable {
 
     @Override
     public String toString() {
-        return "deliver2i.Solution[ id=" + id + " ]";
+        return "Solution{" + "cout=" + cout + ", monInstance=" + monInstance + '}';
     }
+
     
+    public static void main(String[] args) {
+        Solution sol1= new Solution();
+        System.out.println(sol1);
+    }
 }
