@@ -17,7 +17,7 @@ import javax.persistence.Persistence;
 public class Test1 {
 
     public static void main(String[] args) {
-        final EntityManagerFactory emf = Persistence.createEntityManagerFactory("Deliver2iPU");
+        final EntityManagerFactory emf = Persistence.createEntityManagerFactory("unit");
         final EntityManager em = emf.createEntityManager();
         try {
             final EntityTransaction et = em.getTransaction();
