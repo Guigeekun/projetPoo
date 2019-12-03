@@ -6,6 +6,7 @@
 package deliver2i;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,17 +21,75 @@ public class Instance implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String nom;
+
+    private Date date;
+
+    private Date dureeMax;
+
+    private Date dureeMin;
+
+//======getter====================================
     public Long getId() {
         return id;
     }
 
+    public String getNom() {
+        return nom;
+    }
+
+    public Date getDateFin() {
+        return date;
+    }
+
+    public Date getDureeMax() {
+        return dureeMax;
+    }
+
+    public Date getDureeMin() {
+        return dureeMin;
+    }
+
+//=======setter==================================
     public void setId(Long id) {
         this.id = id;
     }
 
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setDateFin(Date dateFin) {
+        this.date = dateFin;
+    }
+
+    public void setDureeMax(Date dureeMax) {
+        this.dureeMax = dureeMax;
+    }
+
+    public void setDureeMin(Date dureeMin) {
+        this.dureeMin = dureeMin;
+    }
+
+//===============Constructor==========================    
+    public Instance() {
+        nom = null;
+        date = null;
+        dureeMax = null;
+        dureeMin = null;
+    }
+
+    public Instance(String nom, Date fin, Date max, Date min) {
+        nom = nom;
+        date = fin;
+        dureeMax = max;
+        dureeMin = min;
+    }
+
+//===============Methode==============================
     @Override
     public int hashCode() {
         int hash = 0;
@@ -55,5 +114,5 @@ public class Instance implements Serializable {
     public String toString() {
         return "deliver2i.Instance[ id=" + id + " ]";
     }
-    
+
 }

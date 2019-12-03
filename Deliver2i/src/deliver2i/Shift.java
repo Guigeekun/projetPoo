@@ -6,6 +6,7 @@
 package deliver2i;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,16 +21,65 @@ public class Shift implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    private Date dateDebut;
+    
+    private Date dateFin;
+    
+    private Solution solution;
+    
+//=============Getter===================
 
     public Long getId() {
         return id;
     }
 
+    public Date getDateDebut() {
+        return dateDebut;
+    }
+
+    public Date getDateFin() {
+        return dateFin;
+    }
+
+    public Solution getSolution() {
+        return solution;
+    }
+    
+//==============Setter=======================
+    
     public void setId(Long id) {
         this.id = id;
     }
+
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public void setDateFin(Date dateFin) {
+        this.dateFin = dateFin;
+    }
+
+    public void setSolution(Solution solution) {
+        this.solution = solution;
+    }
+//============Constructors=======================
+    public Shift(){
+        dateDebut=null;
+        dateFin=null;
+        solution=null;
+    }
+    
+     public Shift(Date debut,Date fin,Solution solu){
+        dateDebut=debut;
+        dateFin=fin;
+        solution=solu;
+    }
+    
+    
+//=============Methode====================
 
     @Override
     public int hashCode() {
