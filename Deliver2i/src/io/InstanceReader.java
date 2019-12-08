@@ -22,6 +22,9 @@ import java.util.Date;
 import java.util.Scanner;
 
 import deliver2i.Instance;
+import deliver2i.Tournee;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  * Classe qui permet de lire une instance pour le projet de POO3 2019/2020.
  * Le format des instances est decrit dans le sujet du projet.
@@ -89,18 +92,22 @@ public class InstanceReader {
                 break;
             }
             elem.addTime(date);
-            // Notez que elem est un objet qui contient deux attributs : une date de debut et une date de fin
-            // Vous pouvez acceder a ces deux attributs de la maniere suivante :
-            // elem.getDebut()
-            // elem.getFin()
-            // Il est egalement important de noter que ces dates correspondent 
-            // a la fusion de la date de l'instance au format jj/mm/aaaa
-            // et des dates du trip au format hh:mm
-            // Nous obtenons donc des dates au format jj/mm/aaaa hh:mm
-            
-            ////////////////////////////////////////////
-            // TODO : Vous pouvez ajoutez chacune des tournees a votre instance
-            ////////////////////////////////////////////
+            try {
+                // Notez que elem est un objet qui contient deux attributs : une date de debut et une date de fin
+                // Vous pouvez acceder a ces deux attributs de la maniere suivante :
+                // elem.getDebut()
+                // elem.getFin()
+                // Il est egalement important de noter que ces dates correspondent
+                // a la fusion de la date de l'instance au format jj/mm/aaaa
+                // et des dates du trip au format hh:mm
+                // Nous obtenons donc des dates au format jj/mm/aaaa hh:mm
+                Tournee tour = new Tournee(date,elem.getDebut(),elem.getFin(),inst);
+                ////////////////////////////////////////////
+                // TODO : Vous pouvez ajoutez chacune des tournees a votre instance
+                ////////////////////////////////////////////
+            } catch (ParseException ex) {
+                Logger.getLogger(InstanceReader.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

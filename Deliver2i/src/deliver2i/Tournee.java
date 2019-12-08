@@ -43,20 +43,59 @@ public class Tournee implements Serializable {
     public Long getId() {
         return id;
     }
+//===========Setter=============================================================
+
+    public void setDate(Date Date) {
+        this.Date = Date;
+    }
+
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public void setDateFin(Date dateFin) {
+        this.dateFin = dateFin;
+    }
+
+    public void setMonInstance(Instance monInstance) {
+        this.monInstance = monInstance;
+    }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+//===========Getter=============================================================
+    public Date getDate() {
+        return Date;
+    }
+
+    public Date getDateDebut() {
+        return dateDebut;
+    }
+
+    public Date getDateFin() {
+        return dateFin;
     }
 
     public Instance getMonInstance() {
         return monInstance;
     }
 
+//===========Constructor========================================================
     public Tournee() throws ParseException {
-        DateFormat format =new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         this.Date = format.parse("03/12/2019 00:00");
-        this.dateDebut=format.parse("03/12/2019 12:00");
-        this.dateFin=format.parse("03/12/2019 20:00");
+        this.dateDebut = format.parse("03/12/2019 12:00");
+        this.dateFin = format.parse("03/12/2019 20:00");
+    }
+
+    public Tournee(Date Date, Date dateDebut, Date dateFin, Instance inst) throws ParseException {
+        this();
+        this.Date = Date;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.monInstance = inst;
     }
 
     public Tournee(Date Date, Date dateDebut, Date dateFin) throws ParseException {
@@ -65,7 +104,8 @@ public class Tournee implements Serializable {
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
     }
-    
+//===========Methode============================================================
+
     public long duree() { //retourne la durée du shift
         long a = this.dateFin.getTime() - this.dateDebut.getTime(); //getTime convert date to Timestamp
         return a / 60; //en minute
@@ -91,21 +131,18 @@ public class Tournee implements Serializable {
         return true;
     }
 
- @Override
+    @Override
     public String toString() {
         return "Tournee{" + "id=" + id + ", Date=" + Date + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", monInstance=" + monInstance + '}';
     }
-
 
     public static void main(String[] args) throws ParseException {
 
         Tournee t1 = new Tournee();
         System.out.println(t1);
         DateFormat format2 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        Tournee t2= new Tournee(format2.parse("03/12/2019 00:00"), format2.parse("03/12/2019 08:00"), format2.parse("03/12/2019 12:00"));
+        Tournee t2 = new Tournee(format2.parse("03/12/2019 00:00"), format2.parse("03/12/2019 08:00"), format2.parse("03/12/2019 12:00"));
         System.out.println(t2);
     }
-
-   
 
 }
