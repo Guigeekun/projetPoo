@@ -7,8 +7,8 @@
     <class>deliver2i.Solution</class>
     <class>deliver2i.Instance</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/deliver2i"/>
-      <property name="javax.persistence.jdbc.user" value=""/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/Deliver2i"/>
+      <property name="javax.persistence.jdbc.user" value="test"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
       <property name="javax.persistence.jdbc.password" value="test"/>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
