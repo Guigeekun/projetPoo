@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package io;
 import io.exception.EmptyFieldException;
 import io.exception.FieldFormatException;
@@ -13,6 +12,7 @@ import io.exception.FormatFileException;
 import io.exception.NumberColumnsException;
 import io.exception.OpenFileException;
 import io.exception.ReaderException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -21,10 +21,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import deliver2i.Instance;
 /**
  * Classe qui permet de lire une instance pour le projet de POO3 2019/2020.
  * Le format des instances est decrit dans le sujet du projet.
- * Attention, ceci est un squellette de code, il faut le compléter.
+ * Attention, ceci est un squelette de code, il faut le compléter.
  * Des commentaires contenant 'TODO' vous aident pour voir a quel endroit vous pouvez completer.
  * N'hésitez pas a apporter toutes les modifications que vous jugez utiles.
  * 
@@ -72,11 +73,13 @@ public class InstanceReader {
         }
         // Dans les 4 lignes qui suivent vous recuperez des informations generales sur l'instance.
         String name = readStringInLine(scanner, "Nom");
+        Date date = readDateInLine(scanner, "Date");
         int dureeMin = readIntInLine(scanner, "Duree min");
         int dureeMax = readIntInLine(scanner, "Duree max");
-        Date date = readDateInLine(scanner, "Date");
+        
         ////////////////////////////////////////////
         // TODO : Vous pouvez creer une instance.
+        Instance inst = new Instance(name,date,dureeMin,dureeMax);
         ////////////////////////////////////////////
         readStringInLine(scanner, new String[]{"Debut", "Fin"});
         // Dans la boucle qui suit, nous allons lire les donnees relatives a chaque tournee.
@@ -91,8 +94,8 @@ public class InstanceReader {
             // elem.getDebut()
             // elem.getFin()
             // Il est egalement important de noter que ces dates correspondent 
-            // a la fusion de la date de l'instance au format jj/mm/aaa
-            // et et des dates du trip au format hh:mm
+            // a la fusion de la date de l'instance au format jj/mm/aaaa
+            // et des dates du trip au format hh:mm
             // Nous obtenons donc des dates au format jj/mm/aaaa hh:mm
             
             ////////////////////////////////////////////

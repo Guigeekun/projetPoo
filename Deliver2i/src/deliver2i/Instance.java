@@ -28,9 +28,9 @@ public class Instance implements Serializable {
 
     private Date date;
 
-    private Date dureeMax;
+    private int dureeMax; //en minute
 
-    private Date dureeMin;
+    private int dureeMin; //en minute
 
 //=====================Getters==============================
     public Long getId() {
@@ -45,11 +45,11 @@ public class Instance implements Serializable {
         return date;
     }
 
-    public Date getDureeMax() {
+    public int getDureeMax() {
         return dureeMax;
     }
 
-    public Date getDureeMin() {
+    public int getDureeMin() {
         return dureeMin;
     }
 
@@ -66,11 +66,11 @@ public class Instance implements Serializable {
         this.date = dateFin;
     }
 
-    public void setDureeMax(Date dureeMax) {
+    public void setDureeMax(int dureeMax) {
         this.dureeMax = dureeMax;
     }
 
-    public void setDureeMin(Date dureeMin) {
+    public void setDureeMin(int dureeMin) {
         this.dureeMin = dureeMin;
     }
 
@@ -78,11 +78,11 @@ public class Instance implements Serializable {
     public Instance() {
         nom = null;
         date = null;
-        dureeMax = null;
-        dureeMin = null;
+        dureeMax = 0;
+        dureeMin = 0;
     }
 
-    public Instance(String nom, Date fin, Date max, Date min) {
+    public Instance(String nom, Date fin, int max, int min) {
         nom = nom;
         date = fin;
         dureeMax = max;

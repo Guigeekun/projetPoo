@@ -29,9 +29,6 @@ public class Tournee implements Serializable {
     private Long id;
 
     @Column(nullable = false)
-    private String nom;
-
-    @Column(nullable = false)
     private Date Date;
 
     @Column(nullable = false)
@@ -51,27 +48,19 @@ public class Tournee implements Serializable {
         this.id = id;
     }
 
-    public String getNom() {
-        return nom;
-    }
-
-   
-
     public Instance getMonInstance() {
         return monInstance;
     }
 
     public Tournee() throws ParseException {
-        this.nom = "Ma tournée test";
         DateFormat format =new SimpleDateFormat("dd/MM/yyyy HH:mm");
         this.Date = format.parse("03/12/2019 00:00");
         this.dateDebut=format.parse("03/12/2019 12:00");
         this.dateFin=format.parse("03/12/2019 20:00");
     }
 
-    public Tournee(String nom, Date Date, Date dateDebut, Date dateFin) throws ParseException {
+    public Tournee(Date Date, Date dateDebut, Date dateFin) throws ParseException {
         this();
-        this.nom = nom;
         this.Date = Date;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
@@ -104,7 +93,7 @@ public class Tournee implements Serializable {
 
  @Override
     public String toString() {
-        return "Tournee{" + "id=" + id + ", nom=" + nom + ", Date=" + Date + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", monInstance=" + monInstance + '}';
+        return "Tournee{" + "id=" + id + ", Date=" + Date + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", monInstance=" + monInstance + '}';
     }
 
 
@@ -113,7 +102,7 @@ public class Tournee implements Serializable {
         Tournee t1 = new Tournee();
         System.out.println(t1);
         DateFormat format2 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        Tournee t2= new Tournee("Ma deuxième tournée", format2.parse("03/12/2019 00:00"), format2.parse("03/12/2019 08:00"), format2.parse("03/12/2019 12:00"));
+        Tournee t2= new Tournee(format2.parse("03/12/2019 00:00"), format2.parse("03/12/2019 08:00"), format2.parse("03/12/2019 12:00"));
         System.out.println(t2);
     }
 

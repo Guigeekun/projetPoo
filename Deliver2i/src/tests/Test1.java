@@ -25,8 +25,8 @@ public class Test1 {
             try {
                 et.begin();
                 // creation d’une entite persistante
-                Instance inst1= new Instance();
-               em.persist(inst1);
+                Instance inst1 = new Instance();
+                em.persist(inst1);
                 et.commit();
             } catch (Exception ex) {
                 et.rollback();
