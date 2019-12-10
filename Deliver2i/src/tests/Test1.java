@@ -23,7 +23,7 @@ public class Test1 {
         try {
             final EntityTransaction et = em.getTransaction();
             try {
-                et.begin();
+                et.begin();     
                 // creation d’une entite persistante
                 Instance inst1 = new Instance();
                 em.persist(inst1);
