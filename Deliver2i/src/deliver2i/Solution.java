@@ -6,11 +6,13 @@
 package deliver2i;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 
 /**
  *
@@ -45,7 +47,7 @@ public class Solution implements Serializable {
         return monInstance;
     }
 
-    public Solution() {
+    public Solution() throws ClassNotFoundException, SQLException {
         this.cout=0.0;
         this.monInstance= new Instance();
     }
@@ -79,7 +81,7 @@ public class Solution implements Serializable {
     }
 
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Solution sol1= new Solution();
         System.out.println(sol1);
     }

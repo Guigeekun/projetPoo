@@ -6,7 +6,14 @@
 package deliver2i;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,7 +38,12 @@ public class Instance implements Serializable {
     private int dureeMax; //en minute
 
     private int dureeMin; //en minute
-
+ private Connection maConnection;
+ 
+ 
+  
+  
+  
 //=====================Getters==============================
     public Long getId() {
         return id;
@@ -75,11 +87,12 @@ public class Instance implements Serializable {
     }
 
 //===============Constructors==========================    
-    public Instance() {
+    public Instance() throws ClassNotFoundException, SQLException {
         nom = null;
         date = null;
         dureeMax = 0;
         dureeMin = 0;
+       // this.connect();
     }
 
     public Instance(String nom, Date fin, int max, int min) {
@@ -90,6 +103,16 @@ public class Instance implements Serializable {
     }
 
 //===============Methodes==============================
+   /* private void connect() throws ClassNotFoundException, SQLException {
+        String driverClass = "org.apache.derby.jdbc.ClientDriver";
+        String urlDatabase = "jdbc:derby://localhost:1527/Deliver2i";
+        String user = "Lucas";
+        String pwd = "projet";
+        Class.forName(driverClass);
+        Connection conn = (Connection) DriverManager.getConnection(urlDatabase, user, pwd);
+        this.maConnection = conn;
+    }*/
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -109,6 +132,20 @@ public class Instance implements Serializable {
         }
         return true;
     }
+
+    /* public List<Instance> ensInstance() throws SQLException {
+        String requete = "SELECT nom,prenom,telephone,revenu,niveau FROM client c,risque r ";// à modifier
+        Statement stmt = maConnection.createStatement();
+        ResultSet res = stmt.executeQuery(requete);
+        List<Instance> mesInstances = new ArrayList<>();
+        while (res.next()) {
+            mesInstances.add(new Instance(res.getString("nom"), res.getDate(nom),
+                    res.getInt("telephone"), res.getInt("revenu")));
+        }
+        res.close();
+        stmt.close();
+        return mesInstances;
+    }*/
 
     @Override
     public String toString() {
