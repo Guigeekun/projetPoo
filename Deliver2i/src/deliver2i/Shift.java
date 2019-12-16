@@ -126,4 +126,8 @@ public class Shift implements Serializable {
         return "deliver2i.Shift[ id=" + id + " dateDebut= " + dateDebut + " dateFin= " + dateFin + " ]";
     }
 
+    
+    public static void main(String[] args) {
+        
+    }
 }

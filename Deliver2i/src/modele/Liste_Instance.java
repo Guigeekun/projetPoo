@@ -10,6 +10,8 @@ import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -25,8 +27,9 @@ public class Liste_Instance extends javax.swing.JFrame {
      */
       private List<Instance> maListeInstance;
        private DefaultListModel model;
+       private Instance monInstance;
        
-    public Liste_Instance() {
+    public Liste_Instance() throws SQLException {
         initComponents();
         inititalisationFenetre();
         initConnexion();
@@ -182,7 +185,11 @@ public class Liste_Instance extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Liste_Instance().setVisible(true);
+                try {
+                    new Liste_Instance().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Liste_Instance.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -196,7 +203,19 @@ public class Liste_Instance extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    private void remplirListeInstance() {
+    private void remplirListeInstance() throws SQLException {
+       /*try{
+        maListeInstance=monInstance.ensInstance();
+        System.out.println("test" + maListeInstance);
+            DefaultListModel defaut = new DefaultListModel();
+            maListeInstance.forEach((Instance) -> {
+                defaut.addElement(Instance);
+            });
+            jList1.setModel(defaut);
+            
+       } catch (SQLException ex) {
+            Logger.getLogger(Liste_Instance.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
         
     }
 }
