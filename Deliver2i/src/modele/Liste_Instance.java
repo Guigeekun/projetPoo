@@ -6,11 +6,13 @@
 package modele;
 
 import deliver2i.Instance;
+import deliver2i.Tournee;
 import java.awt.Color;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -215,18 +217,16 @@ public class Liste_Instance extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void remplirListeInstance() throws SQLException {
-        /*try{
-        maListeInstance=monInstance.ensInstance();
-        System.out.println("test" + maListeInstance);
-            DefaultListModel defaut = new DefaultListModel();
-            maListeInstance.forEach((Instance) -> {
-                defaut.addElement(Instance);
-            });
-            jList1.setModel(defaut);
-            
-       } catch (SQLException ex) {
-            Logger.getLogger(Liste_Instance.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+    
+        
+         javax.persistence.Query q = em.createQuery("SELECT id FROM INSTANCE",Instance.class); //syntaxe JPQL
+        List<Instance> list =   q.getResultList();
+        for (Instance test : list) {
+            System.out.println(test.toString());
+        }
+       
 
     }
-}
+  
+    }
+

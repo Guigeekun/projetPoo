@@ -7,6 +7,10 @@ package deliver2i;
 
 import java.beans.Statement;
 import java.io.Serializable;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -14,9 +18,11 @@ import javax.management.Query;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -36,7 +42,10 @@ public class Shift implements Serializable {
 
     private Solution solution;
 
+
+
 //=============Getters===================
+
     public Long getId() {
         return id;
     }
@@ -126,7 +135,11 @@ public class Shift implements Serializable {
         return "deliver2i.Shift[ id=" + id + " dateDebut= " + dateDebut + " dateFin= " + dateFin + " ]";
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException, ClassNotFoundException, SQLException {
+        DateFormat format2 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        Shift s1 = new Shift(format2.parse("03/12/2019 08:00"), format2.parse("03/12/2019 12:00"), new Solution());
+        Shift s2 = new Shift(format2.parse("02/12/2019 08:00"), format2.parse("02/12/2019 12:00"), new Solution());
+       
 
     }
 }

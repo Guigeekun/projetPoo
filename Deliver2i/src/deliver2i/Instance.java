@@ -121,19 +121,7 @@ public class Instance implements Serializable {
         return true;
     }
 
-     /*public List<Instance> ensInstance() throws SQLException {
-        String requete = "SELECT nom,prenom,telephone,revenu,niveau FROM client c,risque r ";// à modifier
-        Statement stmt = maConnection.createStatement();
-        ResultSet res = stmt.executeQuery(requete);
-        List<Instance> mesInstances = new ArrayList<>();
-        while (res.next()) {
-            mesInstances.add(new Instance(res.getString("nom"), res.getDate(nom),
-                    res.getInt("telephone"), res.getInt("revenu")));
-        }
-        res.close();
-        stmt.close();
-        return [0];
-    }*/
+     
 
     @Override
     public String toString() {
