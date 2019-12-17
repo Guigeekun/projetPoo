@@ -76,9 +76,9 @@ public class InstanceReader {
         }
         // Dans les 4 lignes qui suivent vous recuperez des informations generales sur l'instance.
         String name = readStringInLine(scanner, "Nom");
-        Date date = readDateInLine(scanner, "Date");
         int dureeMin = readIntInLine(scanner, "Duree min");
         int dureeMax = readIntInLine(scanner, "Duree max");
+        Date date = readDateInLine(scanner, "Date");
         
         ////////////////////////////////////////////
         // TODO : Vous pouvez creer une instance.
@@ -274,7 +274,7 @@ public class InstanceReader {
      */
     public static void main(String[] args) {
         try {
-            InstanceReader reader = new InstanceReader("instance_test.csv");
+            InstanceReader reader = new InstanceReader("instance_1.csv");
             reader.readInstance();
             System.out.println("Instance lue avec success !");
         } catch (ReaderException ex) {

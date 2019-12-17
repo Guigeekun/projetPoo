@@ -108,8 +108,13 @@ public class Tournee implements Serializable {
 //===========Methode============================================================
 
     public long duree() { //retourne la durée du shift
-        int a = (int) (this.dateFin.getTime() - (int) this.dateDebut.getTime()); //getTime convert date to Timestamp
-        return a / 60; //en minute
+        long heureEnMs = 60 * 60 * 1000;
+
+        System.out.println(this.dateFin.getTime());
+        System.out.println(this.dateDebut.getTime());
+        long a = (this.dateFin.getTime() - this.dateDebut.getTime()) / heureEnMs; //getTime convert date to Timestamp
+        System.out.println("La tournée dure  " + a + "h");
+        return a;
     }
 
     @Override
@@ -144,6 +149,7 @@ public class Tournee implements Serializable {
         DateFormat format2 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         Tournee t2 = new Tournee(format2.parse("03/12/2019 00:00"), format2.parse("03/12/2019 08:00"), format2.parse("03/12/2019 12:00"));
         System.out.println(t2);
+        System.out.println(t2.duree());
     }
 
 }

@@ -38,7 +38,7 @@ public class Solution implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     public double getCout() {
         return cout;
     }
@@ -48,13 +48,10 @@ public class Solution implements Serializable {
     }
 
     public Solution() throws ClassNotFoundException, SQLException {
-        this.cout=0.0;
-        this.monInstance= new Instance();
+        this.cout = 0.0;
+        this.monInstance = new Instance();
     }
-    
-    
-    
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -80,9 +77,8 @@ public class Solution implements Serializable {
         return "Solution{" + "cout=" + cout + ", monInstance=" + monInstance + '}';
     }
 
-    
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        Solution sol1= new Solution();
+        Solution sol1 = new Solution();
         System.out.println(sol1);
     }
 }

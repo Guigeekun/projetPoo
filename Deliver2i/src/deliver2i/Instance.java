@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,19 +32,18 @@ public class Instance implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true,
+            length = 255,
+            nullable = false)
     private String nom;
 
+    @Column(nullable = false)
     private Date date;
-
+    @Column(nullable = false)
     private int dureeMax; //en minute
-
+    @Column(nullable = false)
     private int dureeMin; //en minute
- private Connection maConnection;
- 
- 
-  
-  
-  
+
 //=====================Getters==============================
     public Long getId() {
         return id;
@@ -92,7 +92,7 @@ public class Instance implements Serializable {
         date = null;
         dureeMax = 0;
         dureeMin = 0;
-       // this.connect();
+        // this.connect();
     }
 
     public Instance(String nom, Date fin, int max, int min) {
@@ -103,16 +103,6 @@ public class Instance implements Serializable {
     }
 
 //===============Methodes==============================
-   /* private void connect() throws ClassNotFoundException, SQLException {
-        String driverClass = "org.apache.derby.jdbc.ClientDriver";
-        String urlDatabase = "jdbc:derby://localhost:1527/Deliver2i";
-        String user = "Lucas";
-        String pwd = "projet";
-        Class.forName(driverClass);
-        Connection conn = (Connection) DriverManager.getConnection(urlDatabase, user, pwd);
-        this.maConnection = conn;
-    }*/
-    
     @Override
     public int hashCode() {
         int hash = 0;

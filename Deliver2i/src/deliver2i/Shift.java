@@ -94,10 +94,10 @@ public class Shift implements Serializable {
         q.setParameter("id", id);
         Set<Tournee> list = (Set<Tournee>) q.getResultList();
         int sum = 0;
-        for(Tournee test:list){
-            sum+=test.duree();
+        for (Tournee test : list) {
+            sum += test.duree();
         }
-          int a = (int) (this.duree()-sum);
+        int a = (int) (this.duree() - sum);
         return a;
     }
 
@@ -126,8 +126,7 @@ public class Shift implements Serializable {
         return "deliver2i.Shift[ id=" + id + " dateDebut= " + dateDebut + " dateFin= " + dateFin + " ]";
     }
 
-    
     public static void main(String[] args) {
-        
+
     }
 }
