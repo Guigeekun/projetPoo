@@ -26,13 +26,30 @@ public class Test1 {
             try {
                 et.begin();     
                 // creation d’une entite persistante
-                for(int i=0;i<13;i++)
-                {
-                    InstanceReader instread = new InstanceReader("instance_"+i+".csv");
-                instread.readInstance(em);
-                 et.commit();
-                }
-                
+               
+                    InstanceReader instread1 = new InstanceReader("instance_0.csv");
+                    InstanceReader instread2 = new InstanceReader("instance_1.csv");
+                    InstanceReader instread3 = new InstanceReader("instance_2.csv");
+                    InstanceReader instread4 = new InstanceReader("instance_3.csv");
+                    InstanceReader instread5 = new InstanceReader("instance_4.csv");
+                    InstanceReader instread6 = new InstanceReader("instance_5.csv");
+                    InstanceReader instread7 = new InstanceReader("instance_6.csv");
+                    InstanceReader instread8 = new InstanceReader("instance_7.csv");
+                    InstanceReader instread9 = new InstanceReader("instance_8.csv");
+                    InstanceReader instread10 = new InstanceReader("instance_9.csv");
+                    InstanceReader instread11 = new InstanceReader("instance_10.csv");
+                instread1.readInstance(em);
+                instread2.readInstance(em);
+                instread3.readInstance(em);
+                instread4.readInstance(em);
+                instread5.readInstance(em);
+                instread6.readInstance(em);
+                instread7.readInstance(em);
+                instread8.readInstance(em);
+                instread9.readInstance(em);
+                instread10.readInstance(em);
+                instread11.readInstance(em);
+                et.commit();
                
             } catch (Exception ex) {
                 et.rollback();
