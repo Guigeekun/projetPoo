@@ -5,6 +5,7 @@
  */
 package tests;
 
+import io.InstanceReader;
 import deliver2i.Instance;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -25,8 +26,8 @@ public class Test1 {
             try {
                 et.begin();     
                 // creation d’une entite persistante
-              Instance inst1 = new Instance();
-                em.persist(inst1);
+                InstanceReader instread = new InstanceReader("instance_test.csv");
+                instread.readInstance(em);
                 et.commit();
             } catch (Exception ex) {
                 et.rollback();

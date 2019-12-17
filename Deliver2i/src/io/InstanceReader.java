@@ -25,6 +25,7 @@ import deliver2i.Instance;
 import deliver2i.Tournee;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManager;
 /**
  * Classe qui permet de lire une instance pour le projet de POO3 2019/2020.
  * Le format des instances est decrit dans le sujet du projet.
@@ -67,7 +68,7 @@ public class InstanceReader {
      * @throws ReaderException lorsque les donnees dans le fichier d'instance 
      * sont manquantes ou au mauvais format.
      */
-    public void readInstance() throws ReaderException {
+    public void readInstance(EntityManager em) throws ReaderException {
         Scanner scanner = null;
         try {
             scanner = new Scanner(instanceFile);
@@ -82,8 +83,9 @@ public class InstanceReader {
         
         ////////////////////////////////////////////
         // TODO : Vous pouvez creer une instance.
-        Instance inst = new Instance(name,date,dureeMin,dureeMax);
         ////////////////////////////////////////////
+        Instance inst = new Instance(name,date,dureeMin,dureeMax);
+        em.persist(inst);
         readStringInLine(scanner, new String[]{"Debut", "Fin"});
         // Dans la boucle qui suit, nous allons lire les donnees relatives a chaque tournee.
         while(true) {
@@ -102,6 +104,7 @@ public class InstanceReader {
                 // et des dates du trip au format hh:mm
                 // Nous obtenons donc des dates au format jj/mm/aaaa hh:mm
                 Tournee tour = new Tournee(date,elem.getDebut(),elem.getFin(),inst);
+                em.persist(tour);
                 ////////////////////////////////////////////
                 // TODO : Vous pouvez ajoutez chacune des tournees a votre instance
                 ////////////////////////////////////////////
@@ -274,8 +277,12 @@ public class InstanceReader {
      */
     public static void main(String[] args) {
         try {
+<<<<<<< HEAD
             InstanceReader reader = new InstanceReader("instance_1.csv");
             reader.readInstance();
+=======
+            InstanceReader reader = new InstanceReader("instance_test.csv");
+>>>>>>> master
             System.out.println("Instance lue avec success !");
         } catch (ReaderException ex) {
             System.out.println(ex.getMessage());
