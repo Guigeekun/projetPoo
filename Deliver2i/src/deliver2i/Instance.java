@@ -32,9 +32,7 @@ public class Instance implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true,
-            length = 255,
-            nullable = false)
+    
     private String nom;
 
     @Column(nullable = false)

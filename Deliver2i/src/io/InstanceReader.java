@@ -245,6 +245,10 @@ public class InstanceReader {
         } while (values.length == 0);
         return values;
     }
+
+    private void readInstance() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     /**
      * Classe interne qui represente une paire de dates.
@@ -277,12 +281,10 @@ public class InstanceReader {
      */
     public static void main(String[] args) {
         try {
-<<<<<<< HEAD
+
             InstanceReader reader = new InstanceReader("instance_1.csv");
             reader.readInstance();
-=======
-            InstanceReader reader = new InstanceReader("instance_test.csv");
->>>>>>> master
+
             System.out.println("Instance lue avec success !");
         } catch (ReaderException ex) {
             System.out.println(ex.getMessage());

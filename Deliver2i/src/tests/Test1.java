@@ -26,9 +26,14 @@ public class Test1 {
             try {
                 et.begin();     
                 // creation d’une entite persistante
-                InstanceReader instread = new InstanceReader("instance_test.csv");
+                for(int i=0;i<13;i++)
+                {
+                    InstanceReader instread = new InstanceReader("instance_"+i+".csv");
                 instread.readInstance(em);
-                et.commit();
+                 et.commit();
+                }
+                
+               
             } catch (Exception ex) {
                 et.rollback();
             }
