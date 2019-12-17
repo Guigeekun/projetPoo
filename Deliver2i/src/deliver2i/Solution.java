@@ -25,12 +25,12 @@ public class Solution implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
- @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private double cout;
 
-    @Column( nullable = false)
+    @JoinColumn(nullable = false)
     private Instance monInstance;
-
+    
     public Long getId() {
         return id;
     }

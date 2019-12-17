@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 
 /**
  *
@@ -28,16 +29,16 @@ public class Tournee implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private Date Date;
 
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private Date dateDebut;
 
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private Date dateFin;
 
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private Instance monInstance;
 
     public Long getId() {
@@ -107,7 +108,7 @@ public class Tournee implements Serializable {
 //===========Methode============================================================
 
     public long duree() { //retourne la durée du shift
-        long a = this.dateFin.getTime() - this.dateDebut.getTime(); //getTime convert date to Timestamp
+        int a = (int) (this.dateFin.getTime() - (int) this.dateDebut.getTime()); //getTime convert date to Timestamp
         return a / 60; //en minute
     }
 
