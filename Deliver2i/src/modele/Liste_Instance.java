@@ -7,11 +7,16 @@ package modele;
 
 import deliver2i.Instance;
 import java.awt.Color;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -25,23 +30,30 @@ public class Liste_Instance extends javax.swing.JFrame {
     /**
      * Creates new form Liste_Instance
      */
-      private List<Instance> maListeInstance;
-       private DefaultListModel model;
-       private Instance monInstance;
-       
+    private List<Instance> maListeInstance;
+    private DefaultListModel model;
+    private Instance monInstance;
+    private EntityManager em;
+    private EntityManagerFactory emf;
+    private EntityTransaction et;
+
     public Liste_Instance() throws SQLException {
-        initComponents();
         inititalisationFenetre();
-        initConnexion();
-        model= new DefaultListModel();
-        maListeInstance=new ArrayList<>();
+        final EntityManagerFactory emf = Persistence.createEntityManagerFactory("Deliver2iPU");
+        final EntityManager em = emf.createEntityManager();
+        final EntityTransaction et = em.getTransaction();
+        this.em = em;
+        this.emf = emf;
+        this.et = et;
+        initComponents();
+        model = new DefaultListModel();
+        maListeInstance = new ArrayList<>();
         remplirListeInstance();
-        
+
     }
 
-    private void initConnexion()
-    {
-     /*    try {
+    private void initConnexion() {
+        /*    try {
             this.maRequeteAssurance = RequeteAssurance.getInstance();
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(this, "Données introuvable dans la BDD ",
@@ -51,6 +63,7 @@ public class Liste_Instance extends javax.swing.JFrame {
             this.dispose();
         }*/
     }
+
     private void inititalisationFenetre() {
         this.setVisible(true);
         this.setLocationRelativeTo(null);
@@ -59,7 +72,6 @@ public class Liste_Instance extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.lightGray);
 
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -151,7 +163,7 @@ public class Liste_Instance extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.setVisible(false);
-        JFrame f= new Fenêtre();
+        JFrame f = new Fenêtre();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -203,7 +215,7 @@ public class Liste_Instance extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void remplirListeInstance() throws SQLException {
-       /*try{
+        /*try{
         maListeInstance=monInstance.ensInstance();
         System.out.println("test" + maListeInstance);
             DefaultListModel defaut = new DefaultListModel();
@@ -215,6 +227,6 @@ public class Liste_Instance extends javax.swing.JFrame {
        } catch (SQLException ex) {
             Logger.getLogger(Liste_Instance.class.getName()).log(Level.SEVERE, null, ex);
         }*/
-        
+
     }
 }
