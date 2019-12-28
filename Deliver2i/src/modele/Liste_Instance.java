@@ -31,12 +31,24 @@ public class Liste_Instance extends javax.swing.JFrame {
     private List<Instance> maListeInstance;
     private DefaultListModel model;
     private EntityManager em;
+<<<<<<< Updated upstream
     private EntityManagerFactory emf;
 
     public Liste_Instance() throws SQLException {
         inititalisationFenetre();
         this.emf = Persistence.createEntityManagerFactory("Deliver2iPU");
         this.em = emf.createEntityManager();
+=======
+    private EntityTransaction et;
+
+    public Liste_Instance() throws SQLException {
+        inititalisationFenetre();
+        final EntityManagerFactory emf = Persistence.createEntityManagerFactory("Deliver2iPU");
+        final EntityManager em = emf.createEntityManager();
+        final EntityTransaction et = em.getTransaction();
+        this.em = em;
+        this.et = et;
+>>>>>>> Stashed changes
         initComponents();
         model = new DefaultListModel();
         maListeInstance = new ArrayList<>();
