@@ -6,22 +6,18 @@
 package modele;
 
 import deliver2i.Instance;
-import deliver2i.Tournee;
 import java.awt.Color;
-import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,19 +30,13 @@ public class Liste_Instance extends javax.swing.JFrame {
      */
     private List<Instance> maListeInstance;
     private DefaultListModel model;
-    private Instance monInstance;
     private EntityManager em;
     private EntityManagerFactory emf;
-    private EntityTransaction et;
 
     public Liste_Instance() throws SQLException {
         inititalisationFenetre();
-        final EntityManagerFactory emf = Persistence.createEntityManagerFactory("Deliver2iPU");
-        final EntityManager em = emf.createEntityManager();
-        final EntityTransaction et = em.getTransaction();
-        this.em = em;
-        this.emf = emf;
-        this.et = et;
+        this.emf = Persistence.createEntityManagerFactory("Deliver2iPU");
+        this.em = emf.createEntityManager();
         initComponents();
         model = new DefaultListModel();
         maListeInstance = new ArrayList<>();
@@ -54,17 +44,7 @@ public class Liste_Instance extends javax.swing.JFrame {
 
     }
 
-    private void initConnexion() {
-        /*    try {
-            this.maRequeteAssurance = RequeteAssurance.getInstance();
-        } catch (ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(this, "Données introuvable dans la BDD ",
-                    "Un problème est survenu ", JOptionPane.ERROR_MESSAGE);;
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Problème de connection à la base de données", "Un problème est survenu ", JOptionPane.ERROR_MESSAGE);
-            this.dispose();
-        }*/
-    }
+
 
     private void inititalisationFenetre() {
         this.setVisible(true);
@@ -216,17 +196,17 @@ public class Liste_Instance extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    private void remplirListeInstance() throws SQLException {
-    
-        
-         javax.persistence.Query q = em.createQuery("SELECT id FROM INSTANCE",Instance.class); //syntaxe JPQL
-        List<Instance> list =   q.getResultList();
-        for (Instance test : list) {
-            System.out.println(test.toString());
+    private void remplirListeInstance() {
+        em.getTransaction().begin();
+        Query query = this.em.createQuery("select i  from instance AS i", Instance.class);
+        List<Instance> maListeInstance = query.getResultList();
+        for (Instance i : maListeInstance) {
+            System.out.println(i.toString());
         }
-       
+
+        em.getTransaction().commit();
+        em.close();
 
     }
-  
-    }
 
+}
