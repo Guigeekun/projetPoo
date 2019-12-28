@@ -198,7 +198,7 @@ public class Liste_Instance extends javax.swing.JFrame {
 
     private void remplirListeInstance() {
         em.getTransaction().begin();
-        Query query = this.em.createQuery("select i  from instance AS i", Instance.class);
+        Query query = this.em.createQuery("select i  from Instance AS i", Instance.class);
         List<Instance> maListeInstance = query.getResultList();
         for (Instance i : maListeInstance) {
             System.out.println(i.toString());
