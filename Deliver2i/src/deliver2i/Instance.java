@@ -122,7 +122,7 @@ public class Instance implements Serializable {
 
     @Override
     public String toString() {
-        return "Instance " + id + " date " + date + " ";
+        return "Instance " + id + " / date " + date;
     }
 
 }
