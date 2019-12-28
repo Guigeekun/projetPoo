@@ -32,7 +32,6 @@ public class Instance implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    
     private String nom;
 
     @Column(nullable = false)
@@ -121,11 +120,9 @@ public class Instance implements Serializable {
         return true;
     }
 
-     
-
     @Override
     public String toString() {
-        return "deliver2i.Instance[ id=" + id + " nom" + nom + " date " + date + " ]";
+        return "Instance " + id + " date " + date + " ";
     }
 
 }

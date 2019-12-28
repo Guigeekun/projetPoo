@@ -6,6 +6,7 @@
 package modele;
 
 import deliver2i.Instance;
+import io.InstanceReader;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.swing.DefaultListModel;
@@ -35,15 +37,56 @@ public class Liste_Instance extends javax.swing.JFrame {
 
     public Liste_Instance() throws SQLException {
         inititalisationFenetre();
-        this.emf = Persistence.createEntityManagerFactory("Deliver2iPU");
-        this.em = emf.createEntityManager();
+
         initComponents();
         maListeInstance = new ArrayList<>();
-        remplirListeInstance();
 
+        this.emf = Persistence.createEntityManagerFactory("Deliver2iPU");
+        this.em = emf.createEntityManager();
+        try {
+            final EntityTransaction et = em.getTransaction();
+            try {
+                et.begin();
+                // creation d’une entite persistante
+
+                InstanceReader instread1 = new InstanceReader("instance_0.csv");
+                InstanceReader instread2 = new InstanceReader("instance_1.csv");
+                InstanceReader instread3 = new InstanceReader("instance_2.csv");
+                InstanceReader instread4 = new InstanceReader("instance_3.csv");
+                InstanceReader instread5 = new InstanceReader("instance_4.csv");
+                InstanceReader instread6 = new InstanceReader("instance_5.csv");
+                InstanceReader instread7 = new InstanceReader("instance_6.csv");
+                InstanceReader instread8 = new InstanceReader("instance_7.csv");
+                InstanceReader instread9 = new InstanceReader("instance_8.csv");
+                InstanceReader instread10 = new InstanceReader("instance_9.csv");
+                InstanceReader instread11 = new InstanceReader("instance_10.csv");
+                instread1.readInstance(em);
+                instread2.readInstance(em);
+                instread3.readInstance(em);
+                instread4.readInstance(em);
+                instread5.readInstance(em);
+                instread6.readInstance(em);
+                instread7.readInstance(em);
+                instread8.readInstance(em);
+                instread9.readInstance(em);
+                instread10.readInstance(em);
+                instread11.readInstance(em);
+                et.commit();
+                remplirListeInstance();
+
+            } catch (Exception ex) {
+                et.rollback();
+            }
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+            if (emf != null && emf.isOpen()) {
+                emf.close();
+            }
+        }
+        
     }
-
-
 
     private void inititalisationFenetre() {
         this.setVisible(true);
@@ -102,20 +145,22 @@ public class Liste_Instance extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(118, 118, 118)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(20, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(348, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(151, 151, 151)
                 .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 336, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane1)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap()))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,14 +242,13 @@ public class Liste_Instance extends javax.swing.JFrame {
 
     private void remplirListeInstance() {
         em.getTransaction().begin();
-        Query query = this.em.createQuery("select i  from Instance AS i", Instance.class);
+        Query query = this.em.createQuery("select i from Instance AS i", Instance.class);
         List<Instance> maListeInstance = query.getResultList();
-         DefaultListModel defaut = new DefaultListModel();
+        DefaultListModel defaut = new DefaultListModel();
         maListeInstance.forEach((Instance) -> {
-                defaut.addElement(Instance);
-            });
-            jList1.setModel(defaut);
-            
+            defaut.addElement(Instance);
+        });
+        jList1.setModel(defaut);
 
         em.getTransaction().commit();
         em.close();
