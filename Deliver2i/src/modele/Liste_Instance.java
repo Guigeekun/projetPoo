@@ -38,7 +38,6 @@ public class Liste_Instance extends javax.swing.JFrame {
         this.emf = Persistence.createEntityManagerFactory("Deliver2iPU");
         this.em = emf.createEntityManager();
         initComponents();
-        model = new DefaultListModel();
         maListeInstance = new ArrayList<>();
         remplirListeInstance();
 
@@ -200,9 +199,12 @@ public class Liste_Instance extends javax.swing.JFrame {
         em.getTransaction().begin();
         Query query = this.em.createQuery("select i  from Instance AS i", Instance.class);
         List<Instance> maListeInstance = query.getResultList();
-        for (Instance i : maListeInstance) {
-            System.out.println(i.toString());
-        }
+         DefaultListModel defaut = new DefaultListModel();
+        maListeInstance.forEach((Instance) -> {
+                defaut.addElement(Instance);
+            });
+            jList1.setModel(defaut);
+            
 
         em.getTransaction().commit();
         em.close();
