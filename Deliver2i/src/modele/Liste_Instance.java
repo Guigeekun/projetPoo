@@ -7,6 +7,7 @@ package modele;
 
 import deliver2i.Instance;
 import io.InstanceReader;
+import io.exception.ReaderException;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -43,49 +44,30 @@ public class Liste_Instance extends javax.swing.JFrame {
 
         this.emf = Persistence.createEntityManagerFactory("Deliver2iPU");
         this.em = emf.createEntityManager();
+        final EntityTransaction et = em.getTransaction();
         try {
-            final EntityTransaction et = em.getTransaction();
-            try {
-                et.begin();
-                // creation d’une entite persistante
+            et.begin();
+            // creation d’une entite persistante
 
-                InstanceReader instread1 = new InstanceReader("instance_0.csv");
-                InstanceReader instread2 = new InstanceReader("instance_1.csv");
-                InstanceReader instread3 = new InstanceReader("instance_2.csv");
-                InstanceReader instread4 = new InstanceReader("instance_3.csv");
-                InstanceReader instread5 = new InstanceReader("instance_4.csv");
-                InstanceReader instread6 = new InstanceReader("instance_5.csv");
-                InstanceReader instread7 = new InstanceReader("instance_6.csv");
-                InstanceReader instread8 = new InstanceReader("instance_7.csv");
-                InstanceReader instread9 = new InstanceReader("instance_8.csv");
-                InstanceReader instread10 = new InstanceReader("instance_9.csv");
-                InstanceReader instread11 = new InstanceReader("instance_10.csv");
-                instread1.readInstance(em);
-                instread2.readInstance(em);
-                instread3.readInstance(em);
-                instread4.readInstance(em);
-                instread5.readInstance(em);
-                instread6.readInstance(em);
-                instread7.readInstance(em);
-                instread8.readInstance(em);
-                instread9.readInstance(em);
-                instread10.readInstance(em);
-                instread11.readInstance(em);
-                et.commit();
-                remplirListeInstance();
+            InstanceReader instread6 = new InstanceReader("instance_5.csv");
+            InstanceReader instread7 = new InstanceReader("instance_6.csv");
+            InstanceReader instread8 = new InstanceReader("instance_7.csv");
+            InstanceReader instread9 = new InstanceReader("instance_8.csv");
+            InstanceReader instread10 = new InstanceReader("instance_9.csv");
+            InstanceReader instread11 = new InstanceReader("instance_10.csv");
 
-            } catch (Exception ex) {
-                et.rollback();
-            }
-        } finally {
-            if (em != null && em.isOpen()) {
-                em.close();
-            }
-            if (emf != null && emf.isOpen()) {
-                emf.close();
-            }
+            instread6.readInstance(em);
+            instread7.readInstance(em);
+            instread8.readInstance(em);
+            instread9.readInstance(em);
+            instread10.readInstance(em);
+            instread11.readInstance(em);
+            et.commit();
+            remplirListeInstance();
+
+        } catch (Exception ex) {
+            et.rollback();
         }
-        
     }
 
     private void inititalisationFenetre() {
@@ -106,16 +88,18 @@ public class Liste_Instance extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        jFileChooser1 = new javax.swing.JFileChooser();
+        jFileChooser3 = new javax.swing.JFileChooser();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
+        jButton4 = new javax.swing.JButton();
+        jFileChooser4 = new javax.swing.JFileChooser();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jButton1.setText("Résoudre");
 
         jButton2.setText("Supprimer");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -140,27 +124,51 @@ public class Liste_Instance extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jList1);
 
+        jButton4.setText("Voir Tournée");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jFileChooser4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFileChooser4ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Ajouter une Instance :");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(151, 151, 151)
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addContainerGap()))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(151, 151, 151)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jFileChooser4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(79, 79, 79)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,27 +178,55 @@ public class Liste_Instance extends javax.swing.JFrame {
                 .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
+                        .addGap(54, 54, 54)
                         .addComponent(jButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jFileChooser4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        // TODO Bouton SUPPRIMER
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.setVisible(false);
         JFrame f = new Fenêtre();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        int index = jList1.getSelectedIndex();
+        JFrame f = new Liste_Tournee(index, emf);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jFileChooser4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser4ActionPerformed
+        String file = jFileChooser4.getSelectedFile().getName();
+        this.em = emf.createEntityManager();
+        final EntityTransaction et = em.getTransaction();
+        try {
+            et.begin();
+            InstanceReader instread = new InstanceReader(file);
+            instread.readInstance(em);
+            et.commit();
+            remplirListeInstance();
+
+        } catch (Exception ex) {
+            et.rollback();
+        }
+    }//GEN-LAST:event_jFileChooser4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,16 +242,21 @@ public class Liste_Instance extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Liste_Instance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Liste_Instance.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Liste_Instance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Liste_Instance.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Liste_Instance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Liste_Instance.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Liste_Instance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Liste_Instance.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -224,18 +265,24 @@ public class Liste_Instance extends javax.swing.JFrame {
             public void run() {
                 try {
                     new Liste_Instance().setVisible(true);
+
                 } catch (SQLException ex) {
-                    Logger.getLogger(Liste_Instance.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Liste_Instance.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JFileChooser jFileChooser1;
+    private javax.swing.JFileChooser jFileChooser3;
+    private javax.swing.JFileChooser jFileChooser4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
@@ -245,13 +292,16 @@ public class Liste_Instance extends javax.swing.JFrame {
         Query query = this.em.createQuery("select i from Instance AS i", Instance.class);
         List<Instance> maListeInstance = query.getResultList();
         DefaultListModel defaut = new DefaultListModel();
-        maListeInstance.forEach((Instance) -> {
-            defaut.addElement(Instance);
-        });
+
+        maListeInstance.forEach(
+                (Instance) -> {
+                    defaut.addElement(Instance);
+                }
+        );
         jList1.setModel(defaut);
 
-        em.getTransaction().commit();
-        em.close();
+        em.getTransaction()
+                .commit();
 
     }
 
