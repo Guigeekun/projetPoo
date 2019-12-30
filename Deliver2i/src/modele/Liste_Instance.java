@@ -197,8 +197,16 @@ public class Liste_Instance extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO Bouton SUPPRIMER
-
+        int index=jList1.getSelectedIndex();
+        System.out.println("J 'ai sélectionné l'instance "+index);
+        em.getTransaction().begin();
+    Query query = this.em.createQuery("Delete  from Instance i WHERE i.id = :id");
+    query.setParameter("id", index);
+    query.executeUpdate();
+     remplirListeInstance();
+    em.getTransaction().commit();
+        System.out.println("J'ai supprimé l'instance "+index);
+       
 
     }//GEN-LAST:event_jButton2ActionPerformed
 

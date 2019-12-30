@@ -54,13 +54,13 @@ public class Liste_Tournee extends javax.swing.JFrame {
 
     Liste_Tournee(int index, EntityManagerFactory emf) {
         inititalisationFenetre();
+         initComponents();
         this.index = index;
         em = emf.createEntityManager();
         final EntityTransaction et = em.getTransaction();
         Query query = this.em.createQuery("SELECT i FROM Instance AS i WHERE i.id = :index", Instance.class);
         query.setParameter("index", this.index);
         this.inst = (Instance) query.getSingleResult();
-        initComponents();
         maListeTournee = new ArrayList<>();
         remplirListeTournee();
 
