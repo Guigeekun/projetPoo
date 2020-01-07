@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 
 /**
  *
@@ -41,6 +42,7 @@ public class Tournee implements Serializable {
     @JoinColumn(nullable = false)
     private Instance monInstance;
 
+    @ManyToMany
     @JoinColumn(nullable = false)
     private HashSet<Shift> monShift;
 

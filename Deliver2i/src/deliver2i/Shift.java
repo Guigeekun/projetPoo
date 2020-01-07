@@ -49,10 +49,10 @@ public class Shift implements Serializable {
     @JoinTable(
             joinColumns = @JoinColumn(
                     referencedColumnName = "monShift",
-                    name = "test"),
+                    name = "SHIFT_ID"),
             inverseJoinColumns = @JoinColumn(
                     referencedColumnName = "mesTournee",
-                    name = "tttt"
+                    name = "TOURNEE_ID"
             )
     )
     private List<Tournee> mesTournee;

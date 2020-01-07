@@ -109,10 +109,12 @@ public class Instance implements Serializable {
         final EntityTransaction et = em.getTransaction();
         try {
             et.begin();
-            Query query = em.createQuery("select i from Tournee AS i WHERE i.monInstance = :inst", Instance.class);
+            Query query = em.createQuery("select i from Tournee AS i WHERE i.monInstance = :inst", Tournee.class);
             query.setParameter("inst", this);
             List<Tournee> maListeTournee = query.getResultList();
-
+            for(Tournee i:maListeTournee){
+                System.out.println(i.toString());
+            }
             Solution sol = new Solution(0.0, this); //le cout est (pour l'instant) fixé à 0
 
             int nbTour = maListeTournee.size();
