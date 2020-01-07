@@ -10,7 +10,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.persistence.Column;
+import java.util.HashSet;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -41,11 +41,10 @@ public class Tournee implements Serializable {
     @JoinColumn(nullable = false)
     private Instance monInstance;
 
-    public Long getId() {
-        return id;
-    }
-//===========Setter=============================================================
+    @JoinColumn(nullable = false)
+    private HashSet<Shift> monShift;
 
+//===========Setter=============================================================
     public void setDate(Date Date) {
         this.Date = Date;
     }
@@ -66,7 +65,15 @@ public class Tournee implements Serializable {
         this.id = id;
     }
 
+    public void addMonShift(Shift s) {
+        this.monShift.add(s);
+    }
+
 //===========Getter=============================================================
+    public Long getId() {
+        return id;
+    }
+
     public Date getDate() {
         return Date;
     }
@@ -81,6 +88,10 @@ public class Tournee implements Serializable {
 
     public Instance getMonInstance() {
         return monInstance;
+    }
+
+    public HashSet<Shift> getMonShift() {
+        return monShift;
     }
 
 //===========Constructor========================================================

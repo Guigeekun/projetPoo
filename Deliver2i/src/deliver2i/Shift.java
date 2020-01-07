@@ -22,6 +22,9 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Persistence;
 
 /**
@@ -42,10 +45,17 @@ public class Shift implements Serializable {
 
     private Solution solution;
 
-
+    @ManyToMany
+    @JoinTable(
+            joinColumns = @JoinColumn(
+                    referencedColumnName = "monShift"),
+            inverseJoinColumns = @JoinColumn(
+                    referencedColumnName = "mesTournee"
+            )
+    )
+    private List<Tournee> mesTournee;
 
 //=============Getters===================
-
     public Long getId() {
         return id;
     }
@@ -99,7 +109,7 @@ public class Shift implements Serializable {
     }
 
     public int tempsMort(EntityManager em) {
-        javax.persistence.Query q = em.createQuery("SELECT dateDebut,dateFin FROM Tournee WHERE shift = :id"); //syntaxe JPQL
+        javax.persistence.Query q = em.createQuery("SELECT dateDebut,dateFin FROM Tournee WHERE monShift = :id"); //syntaxe JPQL
         q.setParameter("id", id);
         Set<Tournee> list = (Set<Tournee>) q.getResultList();
         int sum = 0;
@@ -108,6 +118,14 @@ public class Shift implements Serializable {
         }
         int a = (int) (this.duree() - sum);
         return a;
+    }
+    
+    public void update(){ //permet de mettre à jour les date de debut et de fin à partir des tournée qui le compose
+        Date debut;
+        Date fin;
+        for(int i=0;i<mesTournee.size();i++){
+            
+        }
     }
 
     @Override
@@ -139,7 +157,6 @@ public class Shift implements Serializable {
         DateFormat format2 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         Shift s1 = new Shift(format2.parse("03/12/2019 08:00"), format2.parse("03/12/2019 12:00"), new Solution());
         Shift s2 = new Shift(format2.parse("02/12/2019 08:00"), format2.parse("02/12/2019 12:00"), new Solution());
-       
 
     }
 }

@@ -71,7 +71,6 @@ public class Liste_Instance extends javax.swing.JFrame {
    private void inititalisationFenetre() {
         this.setVisible(true);
         this.setLocationRelativeTo(null);
-        this.setSize(500, 500);
         this.setTitle("titre");
         this.getContentPane().setBackground(Color.lightGray);
 

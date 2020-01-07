@@ -29,7 +29,6 @@ public class Fenêtre extends javax.swing.JFrame {
     private void inititalisationFenetre() {
         this.setVisible(true);
         this.setLocationRelativeTo(null);
-        this.setSize(500, 500);
         this.setTitle("titre");
         this.getContentPane().setBackground(Color.lightGray);
 
@@ -72,10 +71,10 @@ public class Fenêtre extends javax.swing.JFrame {
                 .addContainerGap(67, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(62, 62, 62))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
