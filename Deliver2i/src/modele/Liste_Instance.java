@@ -7,7 +7,6 @@ package modele;
 
 import deliver2i.Instance;
 import io.InstanceReader;
-import io.exception.ReaderException;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -40,6 +39,8 @@ public class Liste_Instance extends javax.swing.JFrame {
         inititalisationFenetre();
 
         initComponents();
+
+        String dir = System.getProperty("user.dir");
         maListeInstance = new ArrayList<>();
 
         this.emf = Persistence.createEntityManagerFactory("Deliver2iPU");
@@ -48,15 +49,12 @@ public class Liste_Instance extends javax.swing.JFrame {
         try {
             et.begin();
             // creation d’une entite persistante
-
-            InstanceReader instread6 = new InstanceReader("instance_5.csv");
             InstanceReader instread7 = new InstanceReader("instance_6.csv");
             InstanceReader instread8 = new InstanceReader("instance_7.csv");
             InstanceReader instread9 = new InstanceReader("instance_8.csv");
             InstanceReader instread10 = new InstanceReader("instance_9.csv");
             InstanceReader instread11 = new InstanceReader("instance_10.csv");
 
-            instread6.readInstance(em);
             instread7.readInstance(em);
             instread8.readInstance(em);
             instread9.readInstance(em);
@@ -131,6 +129,10 @@ public class Liste_Instance extends javax.swing.JFrame {
             }
         });
 
+        jFileChooser4.setApproveButtonToolTipText("");
+        jFileChooser4.setCurrentDirectory(new java.io.File("/home/guigeek/dir"));
+        jFileChooser4.setToolTipText("");
+        jFileChooser4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jFileChooser4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFileChooser4ActionPerformed(evt);
@@ -197,16 +199,16 @@ public class Liste_Instance extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int index=jList1.getSelectedIndex();
-        System.out.println("J 'ai sélectionné l'instance "+index);
+        int index = jList1.getSelectedIndex();
+        System.out.println("J 'ai sélectionné l'instance " + index);
         em.getTransaction().begin();
-    Query query = this.em.createQuery("Delete  from Instance i WHERE i.id = :id");
-    query.setParameter("id", index);
-    query.executeUpdate();
-     remplirListeInstance();
-    em.getTransaction().commit();
-        System.out.println("J'ai supprimé l'instance "+index);
-       
+        Query query = this.em.createQuery("Delete  from Instance i WHERE i.id = :id");
+        query.setParameter("id", index);
+        query.executeUpdate();
+        remplirListeInstance();
+        em.getTransaction().commit();
+        System.out.println("J'ai supprimé l'instance " + index);
+
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -217,7 +219,7 @@ public class Liste_Instance extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         int index = jList1.getSelectedIndex();
-        JFrame f = new Liste_Tournee(index, emf);
+        JFrame f = new Liste_Tournee(index + 1, emf); // +1 car la bdd n'a pas d'id=0 contrairement au tableau
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jFileChooser4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser4ActionPerformed

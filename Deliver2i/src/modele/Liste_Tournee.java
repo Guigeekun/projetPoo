@@ -54,7 +54,7 @@ public class Liste_Tournee extends javax.swing.JFrame {
 
     Liste_Tournee(int index, EntityManagerFactory emf) {
         inititalisationFenetre();
-         initComponents();
+        initComponents();
         this.index = index;
         em = emf.createEntityManager();
         final EntityTransaction et = em.getTransaction();
@@ -159,7 +159,6 @@ public class Liste_Tournee extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.setVisible(false);
-        JFrame f = new Fenêtre();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -213,7 +212,7 @@ public class Liste_Tournee extends javax.swing.JFrame {
     private void remplirListeTournee() {
         em.getTransaction().begin();
         Query query = this.em.createQuery("select i from Tournee AS i WHERE i.monInstance = :inst", Instance.class);
-        query.setParameter("index", this.inst);
+        query.setParameter("inst", this.inst);
         List<Tournee> maListeTournee = query.getResultList();
         DefaultListModel defaut = new DefaultListModel();
         maListeTournee.forEach((Tournee) -> {

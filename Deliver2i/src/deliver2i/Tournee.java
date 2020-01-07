@@ -139,7 +139,7 @@ public class Tournee implements Serializable {
 
     @Override
     public String toString() {
-        return "Tournee{" + "id=" + id + ", Date=" + Date + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", monInstance=" + monInstance + '}';
+        return "dateDebut=" + dateDebut + ", dateFin=" + dateFin + '}';
     }
 
     public static void main(String[] args) throws ParseException {
