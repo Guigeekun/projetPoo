@@ -105,7 +105,7 @@ public class Instance implements Serializable {
 
 //===============Methodes==============================
     public void Resolution1(EntityManager em) throws ClassNotFoundException, SQLException { // cette methode NE PERMET PAS d'avoir des temps morts (enfin en theorie)
-        List<Shift> lshift = null;
+        List<Shift> lshift = new LinkedList<>();
         final EntityTransaction et = em.getTransaction();
         try {
             et.begin();
@@ -119,7 +119,7 @@ public class Instance implements Serializable {
             lshift.add(new Shift(sol));
             int k = 0; //k désigne l'index "actif" des shifts
             for (int i = 0; i < nbTour; i++) {
-                if (lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) < 0 && this.getDureeMax() < lshift.get(k).duree()) { //s.getDateFin() is after (i).getDateDebut() + check duree max du shift
+                if (lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) > 0 && this.getDureeMax() < lshift.get(k).duree()) { //s.getDateFin() is after (i).getDateDebut() + check duree max du shift
                     maListeTournee.get(i).addMonShift(lshift.get(k)); // ajoute la tournee au shift
                     lshift.get(k).addTournee(maListeTournee.get(i));
                     lshift.get(k).update();
@@ -131,8 +131,10 @@ public class Instance implements Serializable {
                     lshift.get(k).update();
                 }
                 for (int u = 0; u < nbTour; u++) {
-                    em.persist(lshift.get(u));
                     em.persist(maListeTournee.get(u));
+                }
+                for (int n = 0; n < lshift.size(); n++) {
+                    em.persist(lshift.get(n));
                 }
                 em.persist(sol);
             }

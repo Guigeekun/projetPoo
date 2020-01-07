@@ -31,7 +31,7 @@ public class Solution extends javax.swing.JFrame {
      * Creates new form Solution
      */
     private List<Solution> maListeSolution;
-    private Solution soluce;
+    private Instance inst;
     private DefaultListModel model;
     private EntityManager em;
     private EntityManagerFactory emf;
@@ -41,6 +41,7 @@ public class Solution extends javax.swing.JFrame {
         initialisationFenetre();
         initComponents();
         maListeSolution = new ArrayList();
+        
 
     }
 
@@ -48,6 +49,7 @@ public class Solution extends javax.swing.JFrame {
         initialisationFenetre();
         initComponents();
         maListeSolution = new ArrayList<>();
+        this.inst= inst;
 
     }
 
@@ -58,9 +60,9 @@ public class Solution extends javax.swing.JFrame {
         this.index = index;
         em = emf.createEntityManager();
         final EntityTransaction et = em.getTransaction();
-        Query query = this.em.createQuery("SELECT s FROM Solution AS s WHERE s.moninstance_id = :index", Solution.class);
+        Query query = this.em.createQuery("SELECT i FROM Instance AS i WHERE i.id= :index", Instance.class);
         query.setParameter("index", this.index);
-        this.soluce = (Solution) query.getSingleResult();
+        this.inst = (Instance) query.getSingleResult();
         maListeSolution = new ArrayList<>();
         remplirListeSolution();
     }
@@ -156,7 +158,13 @@ public class Solution extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        resolution1();
+        try {
+            inst.Resolution1(em);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Solution.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Solution.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -204,7 +212,7 @@ public class Solution extends javax.swing.JFrame {
 
     private void remplirListeSolution() {
         em.getTransaction().begin();
-        Query query = this.em.createQuery("select s from Instance AS s", Solution.class);
+        Query query = this.em.createQuery("select s from Solution AS s", Solution.class);
         List<Solution> maListeSolution = query.getResultList();
         DefaultListModel defaut = new DefaultListModel();
 

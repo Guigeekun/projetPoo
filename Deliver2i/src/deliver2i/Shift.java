@@ -48,9 +48,11 @@ public class Shift implements Serializable {
     @ManyToMany
     @JoinTable(
             joinColumns = @JoinColumn(
-                    referencedColumnName = "monShift"),
+                    referencedColumnName = "monShift",
+                    name = "test"),
             inverseJoinColumns = @JoinColumn(
-                    referencedColumnName = "mesTournee"
+                    referencedColumnName = "mesTournee",
+                    name = "tttt"
             )
     )
     private List<Tournee> mesTournee;
@@ -88,8 +90,8 @@ public class Shift implements Serializable {
     public void setSolution(Solution solution) {
         this.solution = solution;
     }
-    
-    public void addTournee(Tournee tourn){
+
+    public void addTournee(Tournee tourn) {
         this.mesTournee.add(tourn); // pense à call this.update() aprés avoir ajouté une tournée
     }
 //============Constructors=======================
@@ -105,9 +107,9 @@ public class Shift implements Serializable {
         dateFin = fin;
         solution = solu;
     }
-    
+
     public Shift(Solution solu) {
-        solution=solu;
+        solution = solu;
     }
 
 //=============Methodes====================
@@ -127,20 +129,20 @@ public class Shift implements Serializable {
         int a = (int) (this.duree() - sum);
         return a;
     }
-    
-    public void update(){ //permet de mettre à jour les date de debut et de fin à partir des tournée qui le compose
+
+    public void update() { //permet de mettre à jour les date de debut et de fin à partir des tournée qui le compose
         Date debut = null;
         Date fin = null;
-        for(int i=0;i<mesTournee.size();i++){
-            if(mesTournee.get(i).getDateDebut().compareTo(debut)>0){
-               debut=mesTournee.get(i).getDateDebut();
+        for (int i = 0; i < mesTournee.size(); i++) {
+            if (mesTournee.get(i).getDateDebut().compareTo(debut) > 0) {
+                debut = mesTournee.get(i).getDateDebut();
             }
-            if(mesTournee.get(i).getDateFin().compareTo(fin)<0){
-                fin=mesTournee.get(i).getDateFin();
+            if (mesTournee.get(i).getDateFin().compareTo(fin) < 0) {
+                fin = mesTournee.get(i).getDateFin();
             }
         }
-        this.dateDebut=debut;
-        this.dateFin=fin;
+        this.dateDebut = debut;
+        this.dateFin = fin;
     }
 
     @Override
