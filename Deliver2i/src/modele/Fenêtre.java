@@ -27,10 +27,12 @@ public class Fenêtre extends javax.swing.JFrame {
     }
 
     private void inititalisationFenetre() {
+       
         this.setVisible(true);
         this.setLocationRelativeTo(null);
         this.setTitle("titre");
-        this.getContentPane().setBackground(Color.lightGray);
+        this.getContentPane().setBackground(new Color(0,0,26));
+        
 
     }
 
@@ -49,6 +51,7 @@ public class Fenêtre extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(173, 216, 230));
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Interface de solution Deliver2i");
 
         jButton2.setText("Lister les instances");
