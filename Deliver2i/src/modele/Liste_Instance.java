@@ -150,7 +150,7 @@ public class Liste_Instance extends javax.swing.JFrame {
         });
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Veuillez sélectionner une Instance puis sélectionner un bouton d'action ");
+        jLabel3.setText("Veuillez sélectionner une Instance puis cliquer sur  un bouton d'action ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

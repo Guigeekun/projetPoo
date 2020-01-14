@@ -106,7 +106,7 @@ public class Liste_Tournee extends javax.swing.JFrame {
         });
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Liste des tournée de l'instance");
+        jLabel1.setText("Liste des tournées de l'instance");
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -154,7 +154,15 @@ public class Liste_Tournee extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+         int index = jList1.getSelectedIndex() + 1;
+        System.out.println("J 'ai sélectionné la tournée " + index);
+        em.getTransaction().begin();
+        Query query = this.em.createQuery("Delete  from  Tournee t WHERE t.id = :id");
+        query.setParameter("id", index);
+        query.executeUpdate();
+          em.getTransaction().commit();
+          remplirListeTournee();
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -221,8 +229,7 @@ public class Liste_Tournee extends javax.swing.JFrame {
         jList1.setModel(defaut);
 
         em.getTransaction().commit();
-        em.close();
-
+        
     }
 
 }

@@ -195,7 +195,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Veuillez s&#xe9;lectionner une Instance puis s&#xe9;lectionner un bouton d&apos;action "/>
+        <Property name="text" type="java.lang.String" value="Veuillez s&#xe9;lectionner une Instance puis cliquer sur  un bouton d&apos;action "/>
       </Properties>
     </Component>
   </SubComponents>

@@ -87,7 +87,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Liste des tourn&#xe9;e de l&apos;instance"/>
+        <Property name="text" type="java.lang.String" value="Liste des tourn&#xe9;es de l&apos;instance"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
