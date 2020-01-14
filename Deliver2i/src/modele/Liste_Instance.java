@@ -122,7 +122,7 @@ public class Liste_Instance extends javax.swing.JFrame {
         });
 
         jFileChooser4.setApproveButtonToolTipText("");
-        jFileChooser4.setCurrentDirectory(new java.io.File("/home/guigeek/dir"));
+        jFileChooser4.setCurrentDirectory(new java.io.File("C:\\Program Files\\NetBeans-11.1\\dir"));
         jFileChooser4.setToolTipText("");
         jFileChooser4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jFileChooser4.addActionListener(new java.awt.event.ActionListener() {
@@ -243,6 +243,7 @@ public class Liste_Instance extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int index = jList1.getSelectedIndex();
+        
         JFrame f2 = new Liste_Solution(index + 1, emf);
     }//GEN-LAST:event_jButton1ActionPerformed
 
