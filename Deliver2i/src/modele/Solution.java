@@ -165,8 +165,6 @@ public class Solution extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Solution.class.getName()).log(Level.SEVERE, null, ex);
         }remplirListeSolution();
-        
-        remplirListeSolution();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

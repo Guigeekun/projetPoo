@@ -70,7 +70,7 @@ public class Liste_Tournee extends javax.swing.JFrame {
         this.setVisible(true);
         this.setLocationRelativeTo(null);
         this.setTitle("Fenêtre de tournée");
-        this.getContentPane().setBackground(new Color(0, 0, 26));
+       this.getContentPane().setBackground(new Color(0,0,26));
 
     }
 
@@ -154,14 +154,14 @@ public class Liste_Tournee extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int index = jList1.getSelectedIndex() + 1;
+         int index = jList1.getSelectedIndex() + 1;
         System.out.println("J 'ai sélectionné la tournée " + index);
         em.getTransaction().begin();
         Query query = this.em.createQuery("Delete  from  Tournee t WHERE t.id = :id");
         query.setParameter("id", index);
         query.executeUpdate();
-        em.getTransaction().commit();
-        remplirListeTournee();
+          em.getTransaction().commit();
+          remplirListeTournee();
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -229,7 +229,7 @@ public class Liste_Tournee extends javax.swing.JFrame {
         jList1.setModel(defaut);
 
         em.getTransaction().commit();
-
+        
     }
 
 }

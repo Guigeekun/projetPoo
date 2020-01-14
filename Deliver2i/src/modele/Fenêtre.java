@@ -27,11 +27,14 @@ public class Fenêtre extends javax.swing.JFrame {
     }
 
     private void inititalisationFenetre() {
-
+       
         this.setVisible(true);
         this.setLocationRelativeTo(null);
         this.setTitle("Fenêtre d'acceuil");
-        this.getContentPane().setBackground(new Color(0, 0, 26));
+        this.getContentPane().setBackground(new Color(0,0,26));
+        
+        
+        
 
     }
 

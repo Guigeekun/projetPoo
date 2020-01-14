@@ -30,8 +30,9 @@ public class Solution implements Serializable {
 
     @JoinColumn(nullable = false)
     private Instance monInstance;
-
+    
 //==========Getter================================
+    
     public Long getId() {
         return id;
     }
@@ -47,19 +48,21 @@ public class Solution implements Serializable {
     public Instance getMonInstance() {
         return monInstance;
     }
-
+    
 //==========Constructor================================
+
     public Solution() throws ClassNotFoundException, SQLException {
         this.cout = 0.0;
         this.monInstance = new Instance();
     }
-
+    
     public Solution(double cout, Instance inst) throws ClassNotFoundException, SQLException {
         this.cout = cout;
         this.monInstance = inst;
     }
 
 //==========Methode================================
+    
     @Override
     public int hashCode() {
         int hash = 0;
