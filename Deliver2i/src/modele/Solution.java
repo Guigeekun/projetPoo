@@ -64,7 +64,7 @@ public class Solution extends javax.swing.JFrame {
         query.setParameter("index", this.index);
         this.inst = (Instance) query.getSingleResult();
         maListeSolution = new ArrayList<>();
-        remplirListeSolution();
+       
     }
 
     private void initialisationFenetre() {
@@ -227,10 +227,7 @@ public class Solution extends javax.swing.JFrame {
                 .commit();
 
     }
-    private void resolution1()
-    {
-        System.out.println("Soluce ");
-    }
+    
 }
 
 
