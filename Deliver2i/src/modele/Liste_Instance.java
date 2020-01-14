@@ -66,13 +66,14 @@ public class Liste_Instance extends javax.swing.JFrame {
         } catch (Exception ex) {
             et.rollback();
         }
+
     }
 
-   private void inititalisationFenetre() {
+    private void inititalisationFenetre() {
         this.setVisible(true);
         this.setLocationRelativeTo(null);
-        this.setTitle("titre");
-        this.getContentPane().setBackground(new Color(0,0,26));
+        this.setTitle("Fenêtre d'instance");
+        this.getContentPane().setBackground(new Color(0, 0, 26));
 
     }
 
@@ -96,8 +97,11 @@ public class Liste_Instance extends javax.swing.JFrame {
         jFileChooser4 = new javax.swing.JFileChooser();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(770, 650));
+        setResizable(false);
 
         jButton2.setText("Supprimer");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -126,7 +130,7 @@ public class Liste_Instance extends javax.swing.JFrame {
         });
 
         jFileChooser4.setApproveButtonToolTipText("");
-        jFileChooser4.setCurrentDirectory(new java.io.File("/home/guigeek/dir"));
+        jFileChooser4.setCurrentDirectory(new java.io.File("C:\\Program Files\\NetBeans-11.1\\dir"));
         jFileChooser4.setToolTipText("");
         jFileChooser4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jFileChooser4.addActionListener(new java.awt.event.ActionListener() {
@@ -135,7 +139,8 @@ public class Liste_Instance extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Ajouter une Instance :");
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Ou utiliser ce panneau pour ajouter une  Instance :");
 
         jButton1.setText("Solution");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -143,6 +148,9 @@ public class Liste_Instance extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Veuillez sélectionner une Instance puis sélectionner un bouton d'action ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -162,7 +170,8 @@ public class Liste_Instance extends javax.swing.JFrame {
                                 .addGap(20, 20, 20)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3))))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(79, 79, 79)
@@ -181,7 +190,9 @@ public class Liste_Instance extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(51, 51, 51)
+                .addGap(32, 32, 32)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(54, 54, 54)
@@ -205,16 +216,22 @@ public class Liste_Instance extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int index=jList1.getSelectedIndex()+1;
-        //System.out.println("J 'ai sélectionné l'instance "+index);
+        int index = jList1.getSelectedIndex() + 1;
+        System.out.println("J 'ai sélectionné l'instance " + index);
         em.getTransaction().begin();
-        Query query = this.em.createQuery("Delete  from Instance i WHERE i.id = :id");
+
+        // On commence par supprimer les tournées qui appartiennent à l'instance
+        Query query = this.em.createQuery("Delete  from  Tournee t WHERE t.monInstance.id = :id");
         query.setParameter("id", index);
         query.executeUpdate();
-        remplirListeInstance();
-        em.getTransaction().commit();
-        System.out.println("J'ai supprimé l'instance " + index);
 
+        // Puis on exécute une nouvelle requête pour supprimer l'instance
+        Query query2 = this.em.createQuery("Delete from Instance i WHERE i.id = :id");
+        query2.setParameter("id", index);
+        query2.executeUpdate();
+        em.getTransaction().commit();
+         remplirListeInstance();
+        //System.out.println("J'ai supprimé l'instance " + index);
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -247,7 +264,7 @@ public class Liste_Instance extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int index = jList1.getSelectedIndex();
         this.setVisible(false);
-       JFrame f2= new Solution(index+1,emf);
+        JFrame f2 = new Solution(index + 1, emf);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -306,6 +323,7 @@ public class Liste_Instance extends javax.swing.JFrame {
     private javax.swing.JFileChooser jFileChooser4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

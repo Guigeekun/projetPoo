@@ -30,8 +30,10 @@ public class Fenêtre extends javax.swing.JFrame {
        
         this.setVisible(true);
         this.setLocationRelativeTo(null);
-        this.setTitle("titre");
+        this.setTitle("Fenêtre d'acceuil");
         this.getContentPane().setBackground(new Color(0,0,26));
+        
+        
         
 
     }

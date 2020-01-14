@@ -69,7 +69,7 @@ public class Liste_Tournee extends javax.swing.JFrame {
     private void inititalisationFenetre() {
         this.setVisible(true);
         this.setLocationRelativeTo(null);
-        this.setTitle("titre");
+        this.setTitle("Fenêtre de tournée");
        this.getContentPane().setBackground(new Color(0,0,26));
 
     }
