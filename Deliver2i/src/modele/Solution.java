@@ -60,7 +60,7 @@ public class Solution extends javax.swing.JFrame {
         this.index = index;
         em = emf.createEntityManager();
         maListeSolution = new ArrayList<>();
-        remplirListeSolution();
+       
     }
 
     private void initialisationFenetre() {
@@ -155,9 +155,10 @@ public class Solution extends javax.swing.JFrame {
             Logger.getLogger(Solution.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(Solution.class.getName()).log(Level.SEVERE, null, ex);
-        }remplirListeSolution();
-        
+
+        }
         remplirListeSolution();
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -220,10 +221,7 @@ public class Solution extends javax.swing.JFrame {
                 .commit();
 
     }
-    private void resolution1()
-    {
-        System.out.println("Soluce ");
-    }
+    
 }
 
 
