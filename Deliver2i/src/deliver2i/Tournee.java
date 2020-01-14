@@ -41,7 +41,7 @@ public class Tournee implements Serializable {
     private Instance monInstance;
 
 @ManyToMany(mappedBy = "mesTournee")
-    private List<Shift> monShift;
+    private HashSet<Shift> monShift;
 
 //===========Setter=============================================================
     public void setDate(Date Date) {
@@ -89,11 +89,9 @@ public class Tournee implements Serializable {
         return monInstance;
     }
 
-    public List<Shift> getMonShift() {
+    public HashSet<Shift> getMonShift() {
         return monShift;
     }
-
-
 
 //===========Constructor========================================================
     public Tournee() throws ParseException {

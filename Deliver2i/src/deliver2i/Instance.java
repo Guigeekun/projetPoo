@@ -6,12 +6,7 @@
 package deliver2i;
 
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -97,7 +92,7 @@ public class Instance implements Serializable {
     }
 
     public Instance(String nom, Date fin, int max, int min) {
-        nom = nom;
+        this.nom = nom;
         date = fin;
         dureeMax = max;
         dureeMin = min;
@@ -112,26 +107,22 @@ public class Instance implements Serializable {
             Query query = em.createQuery("select i from Tournee AS i WHERE i.monInstance = :inst", Tournee.class);
             query.setParameter("inst", this);
             List<Tournee> maListeTournee = query.getResultList();
-            for(Tournee i:maListeTournee){
-                System.out.println(i.toString());
-            }
             Solution sol = new Solution(0.0, this); //le cout est (pour l'instant) fixé à 0
 
             int nbTour = maListeTournee.size();
             lshift.add(new Shift(sol));
             int k = 0; //k désigne l'index "actif" des shifts
             
-            //&& (this.getDureeMax() <= lshift.get(k).duree()+maListeTournee.get(i).duree()))
+            //
             for (int i = 0; i < nbTour; i++) {
-                if (lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0)  { //s.getDateFin() is after (i).getDateDebut() + check duree max du shift
-                    maListeTournee.get(i).addMonShift(lshift.get(k)); // ajoute la tournee au shift
+                if ((lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0) && (this.getDureeMax() >= lshift.get(k).duree()+maListeTournee.get(i).duree()))  { //s.getDateFin() is after (i).getDateDebut() + check duree max du shift
+                     // ajoute la tournee au shift
                     lshift.get(k).addTournee(maListeTournee.get(i));
                     lshift.get(k).update();
                 } else {
                     k = k + 1;
                     lshift.add(new Shift(sol));
                     lshift.get(k).addTournee(maListeTournee.get(i));
-                    maListeTournee.get(i).addMonShift(lshift.get(k));
                     lshift.get(k).update();
                 }
                 
@@ -143,6 +134,7 @@ public class Instance implements Serializable {
                     em.persist(lshift.get(n));
                 }
                 em.persist(sol);
+                et.commit();
         } catch (Exception ex) {
             et.rollback();
         }
@@ -162,10 +154,7 @@ public class Instance implements Serializable {
             return false;
         }
         Instance other = (Instance) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override

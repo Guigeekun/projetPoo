@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import javax.management.Query;
@@ -110,6 +111,7 @@ public class Shift implements Serializable {
         dateDebut = solu.getMonInstance().getDate();
         dateFin = solu.getMonInstance().getDate();
         solution = solu;
+        mesTournee =new LinkedList<>();
     }
 
 //=============Methodes====================
@@ -132,13 +134,13 @@ public class Shift implements Serializable {
     }
 
     public void update() { //permet de mettre à jour les date de debut et de fin à partir des tournée qui le compose
-        Date debut = null;
-        Date fin = null;
+        Date debut =this.getDateDebut();
+        Date fin = this.getDateFin();
         for (int i = 0; i < mesTournee.size(); i++) {
             if (mesTournee.get(i).getDateDebut().compareTo(debut) > 0) {
                 debut = mesTournee.get(i).getDateDebut();
             }
-            if (mesTournee.get(i).getDateFin().compareTo(fin) < 0) {
+            if (mesTournee.get(i).getDateFin().compareTo(fin) > 0) {
                 fin = mesTournee.get(i).getDateFin();
             }
         }
