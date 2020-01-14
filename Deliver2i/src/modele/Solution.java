@@ -59,6 +59,10 @@ public class Solution extends javax.swing.JFrame {
         this.jLabel1.setText("Solution de l'instance "+index);
         this.index = index;
         em = emf.createEntityManager();
+        final EntityTransaction et = em.getTransaction();
+        Query query = this.em.createQuery("SELECT i FROM Instance AS i WHERE i.id= :index", Instance.class);
+        query.setParameter("index", this.index);
+        this.inst = (Instance) query.getSingleResult();
         maListeSolution = new ArrayList<>();
         remplirListeSolution();
     }
@@ -146,6 +150,11 @@ public class Solution extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
+        try {
+            JFrame fInstance = new Liste_Instance();
+        } catch (SQLException ex) {
+            Logger.getLogger(Solution.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
