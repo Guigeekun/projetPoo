@@ -7,12 +7,15 @@ package deliver2i;
 
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,7 +29,7 @@ public class Solution implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @JoinColumn(nullable = false)
-    private double cout;
+    private double cout; // le cout est en "unité monétaire"
 
     @JoinColumn(nullable = false)
     private Instance monInstance;
@@ -62,6 +65,26 @@ public class Solution implements Serializable {
     }
 
 //==========Methode================================
+    public double calculCout(EntityManager em){
+        double c = 0;
+        int i;
+        long d;
+        em.getTransaction().begin();
+        Query query = em.createQuery("select s from Shift AS s WHERE s.solution = :sol", Shift.class);
+        query.setParameter("sol", this);
+        List<Shift> maListeShift = query.getResultList();
+        
+        for (i=0;i<maListeShift.size();i++){
+            d = maListeShift.get(i).duree();
+            if(d<this.getMonInstance().getDureeMin()){
+                d=this.getMonInstance().getDureeMin();
+            }
+            c+=d;
+        }
+        this.cout = c;
+        return(cout);
+    }
+    
     
     @Override
     public int hashCode() {
