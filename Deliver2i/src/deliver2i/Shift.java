@@ -12,6 +12,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.management.Query;
@@ -47,12 +48,9 @@ public class Shift implements Serializable {
 
     @ManyToMany
     @JoinTable(
-            joinColumns = @JoinColumn(
-                    referencedColumnName = "monShift",
-                    name = "SHIFT_ID"),
-            inverseJoinColumns = @JoinColumn(
-                    referencedColumnName = "mesTournee",
-                    name = "TOURNEE_ID"
+            name = "Tournee_Shift", 
+  joinColumns = @JoinColumn(name = "id"), 
+  inverseJoinColumns = @JoinColumn(name = "id"
             )
     )
     private List<Tournee> mesTournee;
@@ -109,13 +107,16 @@ public class Shift implements Serializable {
     }
 
     public Shift(Solution solu) {
+        dateDebut = solu.getMonInstance().getDate();
+        dateFin = solu.getMonInstance().getDate();
         solution = solu;
     }
 
 //=============Methodes====================
     public long duree() { //retourne la durée du shift
         long a = this.dateFin.getTime() - this.dateDebut.getTime(); //getTime convert date to Timestamp
-        return a / 60; //en minute
+        System.out.println(a/60000);
+        return a / 60000; //en minute
     }
 
     public int tempsMort(EntityManager em) {
@@ -173,6 +174,7 @@ public class Shift implements Serializable {
     public static void main(String[] args) throws ParseException, ClassNotFoundException, SQLException {
         DateFormat format2 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         Shift s1 = new Shift(format2.parse("03/12/2019 08:00"), format2.parse("03/12/2019 12:00"), new Solution());
+        System.out.println(s1.duree());
         Shift s2 = new Shift(format2.parse("02/12/2019 08:00"), format2.parse("02/12/2019 12:00"), new Solution());
 
     }

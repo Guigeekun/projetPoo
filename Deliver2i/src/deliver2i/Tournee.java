@@ -11,11 +11,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 /**
@@ -30,21 +32,16 @@ public class Tournee implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(nullable = false)
     private Date Date;
 
-    @JoinColumn(nullable = false)
     private Date dateDebut;
 
-    @JoinColumn(nullable = false)
     private Date dateFin;
 
-    @JoinColumn(nullable = false)
     private Instance monInstance;
 
-    @ManyToMany
-    @JoinColumn(nullable = false)
-    private HashSet<Shift> monShift;
+@ManyToMany(mappedBy = "mesTournee")
+    private List<Shift> monShift;
 
 //===========Setter=============================================================
     public void setDate(Date Date) {
@@ -92,9 +89,11 @@ public class Tournee implements Serializable {
         return monInstance;
     }
 
-    public HashSet<Shift> getMonShift() {
+    public List<Shift> getMonShift() {
         return monShift;
     }
+
+
 
 //===========Constructor========================================================
     public Tournee() throws ParseException {
@@ -121,14 +120,11 @@ public class Tournee implements Serializable {
 //===========Methode============================================================
 
     public long duree() { //retourne la durée du shift
-        long heureEnMs = 60 * 60 * 1000;
-
-        System.out.println(this.dateFin.getTime());
-        System.out.println(this.dateDebut.getTime());
-        long a = (this.dateFin.getTime() - this.dateDebut.getTime()) / heureEnMs; //getTime convert date to Timestamp
-        System.out.println("La tournée dure  " + a + "h");
-        return a;
+        long a = this.dateFin.getTime() - this.dateDebut.getTime(); //getTime convert date to Timestamp
+        System.out.println(a/60000);
+        return a / 60000; //en minute
     }
+
 
     @Override
     public int hashCode() {
