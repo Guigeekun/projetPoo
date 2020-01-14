@@ -65,17 +65,13 @@ public class Solution implements Serializable {
     }
 
 //==========Methode================================
-    public double calculCout(EntityManager em){
+    public double calculCout(List<Shift> lshift){ // cette fonction n'est utilisé qu'à la creation de la solution
+        //on peut donc se permettre de demander la liste des shift de la solution
         double c = 0;
         int i;
         long d;
-        em.getTransaction().begin();
-        Query query = em.createQuery("select s from Shift AS s WHERE s.solution = :sol", Shift.class);
-        query.setParameter("sol", this);
-        List<Shift> maListeShift = query.getResultList();
-        
-        for (i=0;i<maListeShift.size();i++){
-            d = maListeShift.get(i).duree();
+        for (i=0;i<lshift.size();i++){
+            d = lshift.get(i).duree();
             if(d<this.getMonInstance().getDureeMin()){
                 d=this.getMonInstance().getDureeMin();
             }

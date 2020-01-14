@@ -133,6 +133,7 @@ public class Instance implements Serializable {
                 for (int n = 0; n < lshift.size(); n++) {
                     em.persist(lshift.get(n));
                 }
+                sol.calculCout(lshift);
                 em.persist(sol);
                 et.commit();
         } catch (Exception ex) {
