@@ -6,6 +6,7 @@
 package modele;
 
 import deliver2i.Instance;
+import deliver2i.Solution;
 import deliver2i.Tournee;
 import java.awt.Color;
 import java.sql.SQLException;
@@ -25,10 +26,10 @@ import javax.swing.JFrame;
  *
  * @author PORTABLE
  */
-public class Solution extends javax.swing.JFrame {
+public class Liste_Solution extends javax.swing.JFrame {
 
     /**
-     * Creates new form Solution
+     * Creates new form Liste_Solution
      */
     private List<Solution> maListeSolution;
     private Instance inst;
@@ -37,7 +38,7 @@ public class Solution extends javax.swing.JFrame {
     private EntityManagerFactory emf;
     private int index;
 
-    public Solution() {
+    public Liste_Solution() {
         initialisationFenetre();
         initComponents();
         maListeSolution = new ArrayList();
@@ -45,7 +46,7 @@ public class Solution extends javax.swing.JFrame {
 
     }
 
-    public Solution(Instance inst, EntityManager em) {
+    public Liste_Solution(Instance inst, EntityManager em) {
         initialisationFenetre();
         initComponents();
         maListeSolution = new ArrayList<>();
@@ -53,7 +54,7 @@ public class Solution extends javax.swing.JFrame {
 
     }
 
-    public Solution(int index, EntityManagerFactory emf) {
+    public Liste_Solution(int index, EntityManagerFactory emf) {
         initialisationFenetre();
         initComponents();
         this.jLabel1.setText("Solution de l'instance "+index);
@@ -197,7 +198,7 @@ public class Solution extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Solution().setVisible(true);
+                new Liste_Solution().setVisible(true);
             }
         });
     }

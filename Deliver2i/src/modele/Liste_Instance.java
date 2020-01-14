@@ -264,7 +264,7 @@ public class Liste_Instance extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int index = jList1.getSelectedIndex();
         this.setVisible(false);
-        JFrame f2 = new Solution(index + 1, emf);
+        JFrame f2 = new Liste_Solution(index + 1, emf);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
