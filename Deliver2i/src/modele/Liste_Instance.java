@@ -230,7 +230,7 @@ public class Liste_Instance extends javax.swing.JFrame {
         query2.setParameter("id", index);
         query2.executeUpdate();
         em.getTransaction().commit();
-         remplirListeInstance();
+        remplirListeInstance();
         //System.out.println("J'ai supprimé l'instance " + index);
 
     }//GEN-LAST:event_jButton2ActionPerformed
