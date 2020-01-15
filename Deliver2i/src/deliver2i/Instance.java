@@ -164,14 +164,14 @@ public class Instance implements Serializable {
                     lshift.get(k).update();
                 } else {
                     for (int u = 0; u < k; u++) {
-                        if ((lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0) && (this.getDureeMax() >= lshift.get(k).duree() + maListeTournee.get(i).duree())) {
+                        if ((lshift.get(u).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0) && (this.getDureeMax() >= lshift.get(u).duree() + maListeTournee.get(i).duree())) {
                             // ajoute la tournee au shift
                             validate = 1;
                             lshift.get(u).addTournee(maListeTournee.get(i));
                             lshift.get(u).update();
-
+                            break;
                         }
-                        break;
+                        
                     }
                     if (validate == 0) {
                         k = k + 1;
@@ -192,9 +192,9 @@ public class Instance implements Serializable {
             }
             sol.calculCout(lshift);
             em.persist(sol);
-            et.commit();
+            em.getTransaction().commit();
         } catch (Exception ex) {
-            et.rollback();
+            em.getTransaction().rollback();
         }
     }
 

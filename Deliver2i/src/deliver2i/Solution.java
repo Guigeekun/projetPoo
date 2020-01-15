@@ -104,9 +104,8 @@ public class Solution implements Serializable {
 
     @Override
     public String toString() {
-        return "Solution{" + "cout=" + cout + ", monInstance=" + monInstance + '}';
+        return "Solution" + monInstance + "cout=" + cout;
     }
-
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Solution sol1 = new Solution();
         System.out.println(sol1);

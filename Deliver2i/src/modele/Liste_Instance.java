@@ -40,7 +40,6 @@ public class Liste_Instance extends javax.swing.JFrame {
 
         initComponents();
 
-        String dir = System.getProperty("user.dir");
         maListeInstance = new ArrayList<>();
 
         this.emf = Persistence.createEntityManagerFactory("Deliver2iPU");
