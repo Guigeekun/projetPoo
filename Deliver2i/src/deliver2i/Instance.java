@@ -112,11 +112,11 @@ public class Instance implements Serializable {
             int nbTour = maListeTournee.size();
             lshift.add(new Shift(sol));
             int k = 0; //k désigne l'index "actif" des shifts
-            
+
             //
             for (int i = 0; i < nbTour; i++) {
-                if ((lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0) && (this.getDureeMax() >= lshift.get(k).duree()+maListeTournee.get(i).duree()))  { //s.getDateFin() is after (i).getDateDebut() + check duree max du shift
-                     // ajoute la tournee au shift
+                if ((lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0) && (this.getDureeMax() >= lshift.get(k).duree() + maListeTournee.get(i).duree())) { //s.getDateFin() is after (i).getDateDebut() + check duree max du shift
+                    // ajoute la tournee au shift
                     lshift.get(k).addTournee(maListeTournee.get(i));
                     lshift.get(k).update();
                 } else {
@@ -125,17 +125,74 @@ public class Instance implements Serializable {
                     lshift.get(k).addTournee(maListeTournee.get(i));
                     lshift.get(k).update();
                 }
-                
+
             }
             for (int u = 0; u < nbTour; u++) {
-                    em.persist(maListeTournee.get(u));
+                em.persist(maListeTournee.get(u));
+            }
+            for (int n = 0; n < lshift.size(); n++) {
+                em.persist(lshift.get(n));
+            }
+            sol.calculCout(lshift);
+            em.persist(sol);
+            et.commit();
+        } catch (Exception ex) {
+            et.rollback();
+        }
+    }
+
+    public void Resolution2(EntityManager em) throws ClassNotFoundException, SQLException { // cette methode NE PERMET PAS d'avoir des temps morts (enfin en theorie)
+        List<Shift> lshift = new LinkedList<>();
+        final EntityTransaction et = em.getTransaction();
+        try {
+            et.begin();
+            Query query = em.createQuery("select i from Tournee AS i WHERE i.monInstance = :inst", Tournee.class);
+            query.setParameter("inst", this);
+            List<Tournee> maListeTournee = query.getResultList();
+            Solution sol = new Solution(0.0, this); //le cout est (pour l'instant) fixé à 0
+
+            int nbTour = maListeTournee.size();
+            lshift.add(new Shift(sol));
+            int k = 0; //k désigne l'index "actif" des shifts
+            int validate = 0; //permet de savoir si la tournée active à été traité
+            //
+            for (int i = 0; i < nbTour; i++) {
+                if ((lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0) && (this.getDureeMax() >= lshift.get(k).duree() + maListeTournee.get(i).duree())) { //s.getDateFin() is after (i).getDateDebut() + check duree max du shift
+                    // ajoute la tournee au shift
+                    validate = 1;
+                    lshift.get(k).addTournee(maListeTournee.get(i));
+                    lshift.get(k).update();
+                } else {
+                    for (int u = 0; u < k; u++) {
+                        if ((lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0) && (this.getDureeMax() >= lshift.get(k).duree() + maListeTournee.get(i).duree())) {
+                            // ajoute la tournee au shift
+                            validate = 1;
+                            lshift.get(u).addTournee(maListeTournee.get(i));
+                            lshift.get(u).update();
+
+                        }
+                        break;
+                    }
+                    if (validate == 0) {
+                        k = k + 1;
+                        lshift.add(new Shift(sol));
+                        lshift.get(k).addTournee(maListeTournee.get(i));
+                        lshift.get(k).update();
+                    }
+
                 }
-                for (int n = 0; n < lshift.size(); n++) {
-                    em.persist(lshift.get(n));
-                }
-                sol.calculCout(lshift);
-                em.persist(sol);
-                et.commit();
+                validate = 0;
+
+            }
+            for (int u = 0; u < nbTour; u++) {
+                em.persist(maListeTournee.get(u));
+            }
+            for (int n = 0; n < lshift.size(); n++) {
+                em.persist(lshift.get(n));
+            }
+            sol.calculCout(lshift);
+            em.persist(sol);
+            et.commit();
         } catch (Exception ex) {
             et.rollback();
         }
