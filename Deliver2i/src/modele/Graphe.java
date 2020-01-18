@@ -7,9 +7,12 @@ package modele;
 
 import deliver2i.Instance;
 import deliver2i.Solution;
+import deliver2i.Tournee;
+import dessin.Droite;
+import dessin.Point;
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.Container;
+import java.awt.Graphics;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -29,24 +32,23 @@ public class Graphe extends javax.swing.JFrame {
     private DefaultListModel model;
     private EntityManager em;
     private EntityManagerFactory emf;
+    private Tournee tour;
+    private Container contenu;
     private int index;
-  
-   
-   
-
 
     public Graphe() {
         initialisationFenetre();
         initComponents();
+        repaint();
     }
 
     public Graphe(int index, EntityManagerFactory emf) {
 
         initialisationFenetre();
         initComponents();
+        repaint();
         affichageSol();
-        
-           
+
     }
 
     private void initialisationFenetre() {
@@ -54,14 +56,22 @@ public class Graphe extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Solution");
         this.getContentPane().setBackground(new Color(0, 0, 26));
-        
+       
 
     }
-    
-   private void affichageSol()
-    {
-        
+
+    protected void paintComponent(Graphics g) {
+        super.paintComponents(g);
+        Point p1 = new Point(500, 500);
+        Point p2 = new Point(1000, 500);
+        Droite d1 = new Droite(Color.CYAN, p1, p2);
+        d1.seDessiner(g);
+    }
+
+    private void affichageSol() {
+
         System.out.println("On va afficher le graphe");
+
     }
 
     /**
