@@ -48,12 +48,12 @@ public class Shift implements Serializable {
     private Solution solution;
 
     @ManyToMany
-    @JoinTable(
-            name = "Tournee_Shift", 
-  joinColumns = @JoinColumn(name = "id"), 
-  inverseJoinColumns = @JoinColumn(name = "id"
-            )
-    )
+   // @JoinTable(
+    //        name = "Tournee_Shift", 
+ // joinColumns = @JoinColumn(name = "id"), 
+  //inverseJoinColumns = @JoinColumn(name = "id"
+   //         )
+  //  )
     private List<Tournee> mesTournee;
 
 //=============Getters===================
