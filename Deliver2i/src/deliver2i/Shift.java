@@ -48,7 +48,6 @@ public class Shift implements Serializable {
 
     private Solution solution;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
    // @JoinTable(
     //        name = "Tournee_Shift", 
  // joinColumns = @JoinColumn(name = "id"), 
