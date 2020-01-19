@@ -208,7 +208,16 @@ public class Liste_Instance extends javax.swing.JFrame {
         Query query = this.em.createQuery("Delete  from  Tournee t WHERE t.monInstance.id = :id");
         query.setParameter("id", index);
         query.executeUpdate();
-
+        
+        //et les solutions
+        Query query3 = this.em.createQuery("Delete  from  Solution s WHERE s.monInstance.id = :id");
+        query3.setParameter("id", index);
+        query3.executeUpdate();
+        
+        Query query4 = this.em.createQuery("Delete  from  Shift s WHERE s.solution.id = :id");
+        query4.setParameter("id", index);
+        query4.executeUpdate();
+        
         // Puis on exécute une nouvelle requête pour supprimer l'instance
         Query query2 = this.em.createQuery("Delete from Instance i WHERE i.id = :id");
         query2.setParameter("id", index);

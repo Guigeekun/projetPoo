@@ -17,6 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import javax.management.Query;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -47,7 +48,7 @@ public class Shift implements Serializable {
 
     private Solution solution;
 
-    @ManyToMany
+    @ManyToMany(cascade = { CascadeType.ALL })
    // @JoinTable(
     //        name = "Tournee_Shift", 
  // joinColumns = @JoinColumn(name = "id"), 
@@ -175,7 +176,6 @@ public class Shift implements Serializable {
     public static void main(String[] args) throws ParseException, ClassNotFoundException, SQLException {
         DateFormat format2 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         Shift s1 = new Shift(format2.parse("03/12/2019 08:00"), format2.parse("03/12/2019 12:00"), new Solution());
-        System.out.println(s1.duree());
         Shift s2 = new Shift(format2.parse("02/12/2019 08:00"), format2.parse("02/12/2019 12:00"), new Solution());
 
     }

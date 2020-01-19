@@ -84,7 +84,7 @@ public class InstanceReader {
         ////////////////////////////////////////////
         // TODO : Vous pouvez creer une instance.
         ////////////////////////////////////////////
-        Instance inst = new Instance(name,date,dureeMin,dureeMax);
+        Instance inst = new Instance(name,date,dureeMax,dureeMin);
         em.persist(inst);
         readStringInLine(scanner, new String[]{"Debut", "Fin"});
         // Dans la boucle qui suit, nous allons lire les donnees relatives a chaque tournee.

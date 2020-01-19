@@ -42,6 +42,7 @@ public class Liste_Solution extends javax.swing.JFrame {
         initialisationFenetre();
         initComponents();
         maListeSolution = new ArrayList();
+        remplirListeSolution();
         
 
     }
@@ -51,6 +52,7 @@ public class Liste_Solution extends javax.swing.JFrame {
         initComponents();
         maListeSolution = new ArrayList<>();
         this.inst= inst;
+        remplirListeSolution();
 
     }
 
@@ -65,6 +67,7 @@ public class Liste_Solution extends javax.swing.JFrame {
         query.setParameter("index", this.index);
         this.inst = (Instance) query.getSingleResult();
         maListeSolution = new ArrayList<>();
+        remplirListeSolution();
        
     }
 
@@ -283,7 +286,8 @@ public class Liste_Solution extends javax.swing.JFrame {
 
     private void remplirListeSolution() {
         em.getTransaction().begin();
-        Query query = this.em.createQuery("select s from Solution AS s", Solution.class);
+        Query query = this.em.createQuery("select s from Solution AS s WHERE s.monInstance = :inst", Solution.class);
+        query.setParameter("inst", this.inst); 
         List<Solution> maListeSolution = query.getResultList();
         DefaultListModel defaut = new DefaultListModel();
 
