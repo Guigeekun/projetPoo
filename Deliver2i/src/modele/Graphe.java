@@ -41,7 +41,7 @@ public class Graphe extends javax.swing.JFrame {
     public Graphe() {
         initialisationFenetre();
         initComponents();
-        repaint();
+       
         
     }
 
@@ -49,8 +49,6 @@ public class Graphe extends javax.swing.JFrame {
 
         initialisationFenetre();
         initComponents();
-        
-        repaint();
         affichageSol();
 
     }
@@ -66,13 +64,6 @@ public class Graphe extends javax.swing.JFrame {
 
     }
 
-    protected void paintComponent(Graphics g) {
-        super.paintComponents(g);
-        Point p1 = new Point(500, 500);
-        Point p2 = new Point(1000, 500);
-        Droite d1 = new Droite(Color.CYAN, p1, p2);
-        d1.seDessiner(g);
-    }
 
     private void affichageSol() {
 

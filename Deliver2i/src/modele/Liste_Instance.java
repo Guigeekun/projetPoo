@@ -20,6 +20,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -213,14 +214,22 @@ public class Liste_Instance extends javax.swing.JFrame {
         query2.setParameter("id", index);
         query2.executeUpdate();
         em.getTransaction().commit();
-         remplirListeInstance();
+        remplirListeInstance();
         //System.out.println("J'ai supprimé l'instance " + index);
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         int index = jList1.getSelectedIndex();
-        JFrame f = new Liste_Tournee(index + 1, emf); // +1 car la bdd n'a pas d'id=0 contrairement au tableau
+        if (index == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Aucune instance n'a été sélectionnée!!",
+                    "Message",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+        } else {
+            JFrame f = new Liste_Tournee(index + 1, emf); // +1 car la bdd n'a pas d'id=0 contrairement au tableau
+        }
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jFileChooser4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser4ActionPerformed
@@ -241,8 +250,14 @@ public class Liste_Instance extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int index = jList1.getSelectedIndex();
-        
-        JFrame f2 = new Liste_Solution(index + 1, emf);
+        if (index == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Aucune instance n'a été sélectionnée!!",
+                    "Message",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JFrame f2 = new Liste_Solution(index + 1, emf);
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

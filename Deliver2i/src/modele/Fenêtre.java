@@ -30,6 +30,7 @@ public class Fenêtre extends javax.swing.JFrame {
        
         this.setVisible(true);
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
         this.setTitle("Fenêtre d'acceuil");
         this.getContentPane().setBackground(new Color(0,0,26));
         
@@ -96,6 +97,7 @@ public class Fenêtre extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
+            this.setVisible(false);
             JFrame f = new Liste_Instance();
         } catch (SQLException ex) {
             Logger.getLogger(Fenêtre.class.getName()).log(Level.SEVERE, null, ex);
