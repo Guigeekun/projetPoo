@@ -56,10 +56,10 @@ public class Liste_Instance extends javax.swing.JFrame {
             InstanceReader instread11 = new InstanceReader("instance_10.csv");
 
             instread7.readInstance(em);
-            instread8.readInstance(em);
-            instread9.readInstance(em);
-            instread10.readInstance(em);
-            instread11.readInstance(em);
+      //      instread8.readInstance(em);
+      //      instread9.readInstance(em);
+      /*      instread10.readInstance(em);
+            instread11.readInstance(em);*/
             et.commit();
             remplirListeInstance();
 

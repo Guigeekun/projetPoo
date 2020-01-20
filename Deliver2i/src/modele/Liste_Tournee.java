@@ -33,7 +33,6 @@ public class Liste_Tournee extends javax.swing.JFrame {
     private Instance inst;
     private DefaultListModel model;
     private EntityManager em;
-    private EntityManagerFactory emf;
     private int index;
 
     public Liste_Tournee() throws SQLException {
@@ -52,13 +51,13 @@ public class Liste_Tournee extends javax.swing.JFrame {
 
     }
 
-    Liste_Tournee(int index, EntityManagerFactory emf) {
+   public Liste_Tournee(int index, EntityManagerFactory emf) {
         inititalisationFenetre();
         initComponents();
         this.index = index;
         em = emf.createEntityManager();
         final EntityTransaction et = em.getTransaction();
-        Query query = this.em.createQuery("SELECT i FROM Instance AS i WHERE i.id = :index", Instance.class);
+        Query query = this.em.createQuery("SELECT i FROM Instance AS i WHERE i. = :index", Instance.class);
         query.setParameter("index", this.index);
         this.inst = (Instance) query.getSingleResult();
         maListeTournee = new ArrayList<>();
@@ -70,6 +69,7 @@ public class Liste_Tournee extends javax.swing.JFrame {
         this.setVisible(true);
         this.setLocationRelativeTo(null);
         this.setTitle("Fenêtre de tournée");
+        this.setResizable(false);
        this.getContentPane().setBackground(new Color(0,0,26));
        this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 
@@ -89,7 +89,11 @@ public class Liste_Tournee extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jButton3.setText("Retour");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -97,9 +101,11 @@ public class Liste_Tournee extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton3);
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Liste des tournées de l'instance");
+        getContentPane().add(jLabel1);
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -108,39 +114,7 @@ public class Liste_Tournee extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jList1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 79, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(jLabel1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(99, 239, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 12, Short.MAX_VALUE))))
-        );
+        getContentPane().add(jScrollPane1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -148,6 +122,10 @@ public class Liste_Tournee extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

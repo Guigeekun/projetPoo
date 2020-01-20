@@ -5,6 +5,7 @@
  */
 package dessin;
 
+import deliver2i.Shift;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -21,6 +22,14 @@ public class Rectangle extends Forme {
         super(macouleur);
         this.p1=p1;
         this.p2=p2;
+    }
+    
+    public Rectangle(Color macouleur, Shift leShift,int hauteur,int k)
+    {
+        super(macouleur);
+        int y1=20+k*hauteur;
+        
+        
     }
 
     @Override

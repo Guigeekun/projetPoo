@@ -232,7 +232,7 @@ public class Liste_Solution extends javax.swing.JFrame {
        
         index=jList1.getSelectedIndex();
         System.out.println("je prend"+index);
-        JFrame f= new Graphe(index+1,emf);
+        JFrame f= new Graphe(index+1,em);
         
     }//GEN-LAST:event_jButton3ActionPerformed
 

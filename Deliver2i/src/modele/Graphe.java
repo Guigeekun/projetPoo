@@ -6,6 +6,7 @@
 package modele;
 
 import deliver2i.Instance;
+import deliver2i.Shift;
 import deliver2i.Solution;
 import deliver2i.Tournee;
 import dessin.Droite;
@@ -14,6 +15,8 @@ import dessin.ZoneGraphique;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Graphics;
+import java.util.LinkedList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -35,41 +38,64 @@ public class Graphe extends javax.swing.JFrame {
     private EntityManagerFactory emf;
     private ZoneGraphique zg;
     private Tournee tour;
+    private int tailleX;
+    private int tailleY;
     private Container contenu;
+    private Solution soluce;
+    private List<Shift> lShift;
     private int index;
 
     public Graphe() {
-        initialisationFenetre();
         initComponents();
-       
-        
+        initialisationFenetre();
+        affichageSol();
+
     }
 
-    public Graphe(int index, EntityManagerFactory emf) {
-
-        initialisationFenetre();
+    public Graphe(int index, EntityManager em) {
         initComponents();
+        initialisationFenetre();
+        this.index = index;
+        this.em = em;
+        this.lShift = new LinkedList<>();
+        final EntityTransaction et = em.getTransaction();
+        Query query = this.em.createQuery("Select s FROM Solution AS s WHERE s.monInstance.id = :id ", Solution.class);
+        query.setParameter("id", this.index);
+        this.tailleX = this.zg.getSize().width;
+        this.tailleY = this.zg.getSize().height;
+        this.soluce = (Solution) query.getSingleResult();
+        this.zg.creerAxe(tailleY, tailleX);
         affichageSol();
 
     }
 
     private void initialisationFenetre() {
-         this.zg=new ZoneGraphique();
+        this.zg = new ZoneGraphique();
+       
+        this.add(zg);
         this.setVisible(true);
-        this.add(this.zg);
         this.setLocationRelativeTo(null);
         this.setTitle("Solution");
         this.getContentPane().setBackground(new Color(0, 0, 26));
-       
 
     }
-
 
     private void affichageSol() {
-
-        System.out.println("On va afficher le graphe");
+    
+        repaint();
+        
+        /*final EntityTransaction et = em.getTransaction();
+        Query query = this.em.createQuery("Select s FROM Shift AS s WHERE s.solution = :soluce ", Shift.class);
+        query.setParameter("soluce", this.soluce);
+        lShift = query.getResultList();
+        int taille = lShift.size();
+        System.out.println("Taille liste: " + taille);
+        int hauteurRec = (this.tailleY - 40) / taille;*/
 
     }
+    
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -110,8 +136,6 @@ public class Graphe extends javax.swing.JFrame {
 
         jButton3.setText("Retour");
 
-        setPreferredSize(new java.awt.Dimension(1600, 900));
-
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Graphe Shift");
 
@@ -138,7 +162,7 @@ public class Graphe extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(0, 602, Short.MAX_VALUE)
                         .addComponent(jButton4)))
                 .addContainerGap())
@@ -189,4 +213,5 @@ public class Graphe extends javax.swing.JFrame {
     private javax.swing.JDialog jDialog2;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
 }
