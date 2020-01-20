@@ -26,16 +26,8 @@ public class ZoneGraphique extends JPanel {
     
 public void creerAxe(int x, int y)
 {  
-        Point p1 = new Point(20, 20);
-        Point p2 = new Point(20, y-20);
-        
-        Point p3= new Point(20,20);
-        Point p4= new Point(20,x-20);
-        Droite d1 = new Droite(Color.BLACK, p1, p2);
-        Droite d2= new Droite(Color.BLACK,p3,p4);
      
-        d1.seDessiner(this.getGraphics());
-        d2.seDessiner(this.getGraphics());
+      
     
 }
     @Override
@@ -44,6 +36,15 @@ public void creerAxe(int x, int y)
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
         
         
+        Point p1 = new Point(20, 20);
+        Point p2 = new Point(20, 20);
+        
+        Point p3= new Point(20,20);
+        Point p4= new Point(20,20);
+        Droite d1 = new Droite(Color.BLACK, p1, p2);
+        Droite d2= new Droite(Color.BLACK,p3,p4);
+        d1.seDessiner(g);
+        d2.seDessiner(g);
     }
     
     
