@@ -157,8 +157,9 @@ public class Instance implements Serializable {
             int validate = 0; //permet de savoir si la tournée active à été traité
             //
             for (int i = 0; i < nbTour; i++) {
-                if ((lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0) && (this.getDureeMax() >= lshift.get(k).duree() + maListeTournee.get(i).duree())) { //s.getDateFin() is after (i).getDateDebut() + check duree max du shift
-                    // ajoute la tournee au shift
+                 long dur = (maListeTournee.get(i).getDateFin().getTime() - lshift.get(k).getDateDebut().getTime())/60000;
+                if ((lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0) && (this.getDureeMax() >= dur)) { //s.getDateFin() is after (i).getDateDebut() + check duree max du shift
+                      // ajoute la tournee au shift
                     validate = 1;
                     lshift.get(k).addTournee(maListeTournee.get(i));
                     lshift.get(k).update();
