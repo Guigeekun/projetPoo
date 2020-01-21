@@ -87,6 +87,7 @@ public class Shift implements Serializable {
 
     public void addTournee(Tournee tourn) {
         this.mesTournee.add(tourn); // pense à call this.update() aprés avoir ajouté une tournée
+        this.update();
     }
 //============Constructors=======================
 

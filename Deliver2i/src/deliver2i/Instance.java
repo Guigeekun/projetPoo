@@ -114,7 +114,7 @@ public class Instance implements Serializable {
             int k = 0; //k désigne l'index "actif" des shifts
 
             for (int i = 0; i < nbTour; i++) {
-                long dur = (maListeTournee.get(i).getDateFin().getTime() - lshift.get(k).getDateDebut().getTime())/60000;
+                long dur = (maListeTournee.get(i).duree() - lshift.get(k).duree());//durée du shift si on ajoute la tournée
                 if ((lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0) && (this.getDureeMax() >= dur)) { //s.getDateFin() is after (i).getDateDebut() + check duree max du shift
                     // ajoute la tournee au shift
                     lshift.get(k).addTournee(maListeTournee.get(i));
@@ -157,7 +157,7 @@ public class Instance implements Serializable {
             int validate = 0; //permet de savoir si la tournée active à été traité
             //
             for (int i = 0; i < nbTour; i++) {
-                 long dur = (maListeTournee.get(i).getDateFin().getTime() - lshift.get(k).getDateDebut().getTime())/60000;
+                 long dur = (maListeTournee.get(i).duree() - lshift.get(k).duree());//durée du shift si on ajoute la tournée
                 if ((lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0) && (this.getDureeMax() >= dur)) { //s.getDateFin() is after (i).getDateDebut() + check duree max du shift
                       // ajoute la tournee au shift
                     validate = 1;
