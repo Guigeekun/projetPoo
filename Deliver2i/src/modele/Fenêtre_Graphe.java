@@ -160,7 +160,7 @@ public class Fenêtre_Graphe extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(380, 380, 380)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(907, Short.MAX_VALUE))
+                .addContainerGap(921, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

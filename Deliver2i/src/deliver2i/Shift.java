@@ -63,6 +63,11 @@ public class Shift implements Serializable {
         return solution;
     }
 
+    public List<Tournee> getMesTournee() {
+        return mesTournee;
+    }
+    
+
 //==============Setters=======================
     public void setId(Long id) {
         this.id = id;
