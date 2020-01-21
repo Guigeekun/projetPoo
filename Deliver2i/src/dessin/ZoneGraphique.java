@@ -5,9 +5,15 @@
  */
 package dessin;
 
+import deliver2i.Instance;
+import deliver2i.Shift;
+import deliver2i.Solution;
 import java.awt.Color;
 import static java.awt.Color.WHITE;
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import javax.swing.JPanel;
 
 /**
@@ -16,40 +22,64 @@ import javax.swing.JPanel;
  */
 public class ZoneGraphique extends JPanel {
 
+    private LinkedList<Forme> collectionDesFormes;
+
     public ZoneGraphique() {
         this.setBackground(WHITE);
-        this.setBounds(25, 25, 600, 600);
+        this.setBounds(25, 25,1460 ,600 );//1460=24*60+20 en minutes
+        this.collectionDesFormes = new LinkedList<>();
         repaint();
-        
+
     }
     
-    
-public void creerAxe(int x, int y)
-{  
-     
-      
-    
-}
-    @Override
-    public void paintComponent(Graphics g) {
-       
-        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
-        
+    /*
+    ATTENTION tout le graph a une marge de 20 en x et en y
+    cette marge est HARD CODé, si on trouve le temps : à fix
+    */
+
+    public void addAxe() {
+        super.paintComponent(this.getGraphics());
         
         Point p1 = new Point(20, 20);
-        Point p2 = new Point(20, 20);
-        
-        Point p3= new Point(20,20);
-        Point p4= new Point(20,20);
+        Point p2 = new Point(20, this.getSize().height);
         Droite d1 = new Droite(Color.BLACK, p1, p2);
-        Droite d2= new Droite(Color.BLACK,p3,p4);
-        d1.seDessiner(g);
-        d2.seDessiner(g);
+
+        Point p3 = new Point(20, 20);
+        Point p4 = new Point(this.getSize().width, 20);
+        Droite d2 = new Droite(Color.BLACK, p3, p4);
+
+        collectionDesFormes.add(d2);
+        collectionDesFormes.add(d1);
     }
     
-    
+    public void construireShift(List<Shift> lshift,Instance inst){
+        
+        int size = lshift.size();
+        for(int k=0;k<size;k++){
+            int x1 =(int)  (lshift.get(k).getDateDebut().getTime()-inst.getDate().getTime())/60000; // différence en minute entre 00h00 et la date de debut du shift
+            int y1 = 20+k*this.getSize().height/size; //hauteur du point supérieur gauche du rectangle
+            //le cast de long vers int peut sembler problematique, mais on ne travail que sur des durée de 24h, ca ne devrait pas poser de probléme
+            Point p1 = new Point(x1,y1);
+            
+            int x2 = (int) (x1+lshift.get(k).duree());
+            int y2 = y1+(this.getHeight()-20)/size;
+            
+            Point p2 = new Point(x2,y2);
+            
+            Rectangle rec = new Rectangle(Color.BLACK,p1,p2);
+            collectionDesFormes.add(rec);
+        }
+        
+        
+    }
 
+    @Override
+    public void paintComponent(Graphics g) {
+
+        super.paintComponent(g);
+        this.collectionDesFormes.forEach((f) -> {
+            f.seDessiner(g);
+        });
    
-
-    
+    }
 }

@@ -122,7 +122,7 @@ public class Liste_Instance extends javax.swing.JFrame {
         });
 
         jFileChooser4.setApproveButtonToolTipText("");
-        jFileChooser4.setCurrentDirectory(new java.io.File("C:\\Program Files\\NetBeans-11.1\\dir"));
+        jFileChooser4.setCurrentDirectory(new java.io.File("/home/guigeek/dir"));
         jFileChooser4.setToolTipText("");
         jFileChooser4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jFileChooser4.addActionListener(new java.awt.event.ActionListener() {

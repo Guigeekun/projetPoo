@@ -9,8 +9,6 @@ import deliver2i.Instance;
 import deliver2i.Shift;
 import deliver2i.Solution;
 import deliver2i.Tournee;
-import dessin.Droite;
-import dessin.Point;
 import dessin.ZoneGraphique;
 import java.awt.Color;
 import java.awt.Container;
@@ -20,7 +18,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.swing.DefaultListModel;
 
@@ -42,7 +39,7 @@ public class Fenêtre_Graphe extends javax.swing.JFrame {
     private int tailleY;
     private Container contenu;
     private Solution soluce;
-    private List<Shift> lShift;
+    private List<Shift> lshift;
     private int index;
 
     public Fenêtre_Graphe() {
@@ -57,15 +54,21 @@ public class Fenêtre_Graphe extends javax.swing.JFrame {
         initialisationFenetre();
         this.index = index;
         this.em = em;
-        this.lShift = new LinkedList<>();
+        this.lshift = new LinkedList<>();
         final EntityTransaction et = em.getTransaction();
-        Query query = this.em.createQuery("Select s FROM Solution AS s WHERE s.monInstance.id = :id ", Solution.class);
+        Query query = this.em.createQuery("Select s FROM Solution AS s WHERE s.id = :id ", Solution.class);
         query.setParameter("id", this.index);
-        this.tailleX = this.zg.getSize().width;
-        this.tailleY = this.zg.getSize().height;
         this.soluce = (Solution) query.getSingleResult();
-        this.zg.creerAxe(tailleY, tailleX);
-        affichageSol();
+        
+        Instance inst=soluce.getMonInstance();
+        
+        Query query2 = this.em.createQuery("Select s FROM Shift AS s WHERE s.solution = :solu ", Shift.class);
+        query2.setParameter("solu", this.soluce);
+        this.lshift = query2.getResultList();
+        
+        zg.addAxe();
+        zg.construireShift(lshift,inst);
+        zg.paintComponent(zg.getGraphics());
 
     }
 
@@ -140,6 +143,11 @@ public class Fenêtre_Graphe extends javax.swing.JFrame {
         jLabel1.setText("Graphe Shift");
 
         jButton4.setText("Retour");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -170,6 +178,10 @@ public class Fenêtre_Graphe extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

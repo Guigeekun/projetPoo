@@ -24,13 +24,6 @@ public class Rectangle extends Forme {
         this.p2=p2;
     }
     
-    public Rectangle(Color macouleur, Shift leShift,int hauteur,int k)
-    {
-        super(macouleur);
-        int y1=20+k*hauteur;
-        
-        
-    }
 
     @Override
     public void seDessiner(Graphics g) {
