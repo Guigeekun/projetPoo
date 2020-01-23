@@ -114,7 +114,7 @@ public class Instance implements Serializable {
             int k = 0; //k désigne l'index "actif" des shifts
 
             for (int i = 0; i < nbTour; i++) {
-                long dur = (maListeTournee.get(i).duree() - lshift.get(k).duree());//durée du shift si on ajoute la tournée
+                long dur = (maListeTournee.get(i).getDateDebut().getTime() - lshift.get(k).getDateFin().getTime())/60000;//durée du shift si on ajoute la tournée
                 if ((lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0) && (this.getDureeMax() >= dur)) { //s.getDateFin() is after (i).getDateDebut() + check duree max du shift
                     // ajoute la tournee au shift
                     lshift.get(k).addTournee(maListeTournee.get(i));
@@ -157,7 +157,7 @@ public class Instance implements Serializable {
             int validate = 0; //permet de savoir si la tournée active à été traité
             //
             for (int i = 0; i < nbTour; i++) {
-                 long dur = (maListeTournee.get(i).duree() - lshift.get(k).duree());//durée du shift si on ajoute la tournée
+                 long dur = (maListeTournee.get(i).getDateDebut().getTime() - lshift.get(k).getDateFin().getTime())/60000;//durée du shift si on ajoute la tournée
                 if ((lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0) && (this.getDureeMax() >= dur)) { //s.getDateFin() is after (i).getDateDebut() + check duree max du shift
                       // ajoute la tournee au shift
                     validate = 1;
@@ -165,7 +165,8 @@ public class Instance implements Serializable {
                     lshift.get(k).update();
                 } else {
                     for (int u = 0; u < k; u++) {
-                        if ((lshift.get(u).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0) && (this.getDureeMax() >= lshift.get(u).duree() + maListeTournee.get(i).duree())) {
+                        dur = (lshift.get(k).getDateDebut().getTime() - maListeTournee.get(i).getDateFin().getTime())/60000;
+                        if ((lshift.get(u).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0) && (this.getDureeMax() >= dur)) {
                             // ajoute la tournee au shift
                             validate = 1;
                             lshift.get(u).addTournee(maListeTournee.get(i));
