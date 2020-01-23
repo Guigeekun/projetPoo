@@ -10,10 +10,10 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
@@ -87,7 +87,12 @@ public class Shift implements Serializable {
 
     public void addTournee(Tournee tourn) {
         this.mesTournee.add(tourn); // pense à call this.update() aprés avoir ajouté une tournée
-        this.update();
+        if (tourn.getDateDebut().compareTo(this.dateDebut) < 0) {
+                this.dateDebut = tourn.getDateDebut();
+        }
+         if (tourn.getDateFin().compareTo(this.dateFin) > 0) {
+                this.dateFin = tourn.getDateFin();
+            }
     }
 //============Constructors=======================
 
@@ -102,10 +107,16 @@ public class Shift implements Serializable {
         dateFin = fin;
         solution = solu;
     }
-
+    
     public Shift(Solution solu) {
-        dateDebut = solu.getMonInstance().getDate();
-        dateFin = solu.getMonInstance().getDate();
+       
+        Date dt = solu.getMonInstance().getDate();
+        Calendar c = Calendar.getInstance(); 
+        c.setTime(dt); 
+        c.add(Calendar.DATE, 1);
+        dt = c.getTime();
+        dateDebut =  dt;
+        dateFin = solu.getMonInstance().getDate(); //les valeurs sont arbitrairement inateniable
         solution = solu;
         mesTournee =new LinkedList<>();
     }
@@ -117,30 +128,13 @@ public class Shift implements Serializable {
     }
 
     public int tempsMort(EntityManager em) {
-        javax.persistence.Query q = em.createQuery("SELECT dateDebut,dateFin FROM Tournee WHERE monShift = :id"); //syntaxe JPQL
-        q.setParameter("id", id);
-        Set<Tournee> list = (Set<Tournee>) q.getResultList();
+        
         int sum = 0;
-        for (Tournee test : list) {
+        for (Tournee test : this.mesTournee) {
             sum += test.duree();
         }
         int a = (int) (this.duree() - sum);
         return a;
-    }
-
-    public void update() { //permet de mettre à jour les date de debut et de fin à partir des tournée qui le compose
-        Date debut =this.getDateDebut();
-        Date fin = this.getDateFin();
-        for (int i = 0; i < mesTournee.size(); i++) {
-            if (mesTournee.get(i).getDateDebut().compareTo(debut) > 0) {
-                debut = mesTournee.get(i).getDateDebut();
-            }
-            if (mesTournee.get(i).getDateFin().compareTo(fin) > 0) {
-                fin = mesTournee.get(i).getDateFin();
-            }
-        }
-        this.dateDebut = debut;
-        this.dateFin = fin;
     }
 
     @Override

@@ -27,7 +27,7 @@ public class ZoneGraphique extends JPanel {
 
     public ZoneGraphique() {
         this.setBackground(WHITE);
-        this.setBounds(25, 25, 1460, 620);//1460=24*60+20 en minutes
+        this.setBounds(25, 25, 1460, 800);//1460=24*60+20 en minutes
         this.collectionDesFormes = new LinkedList<>();
         repaint();
 

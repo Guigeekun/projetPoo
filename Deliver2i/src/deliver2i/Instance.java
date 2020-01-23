@@ -114,16 +114,14 @@ public class Instance implements Serializable {
             int k = 0; //k désigne l'index "actif" des shifts
 
             for (int i = 0; i < nbTour; i++) {
-                long dur = (maListeTournee.get(i).getDateDebut().getTime() - lshift.get(k).getDateFin().getTime())/60000;//durée du shift si on ajoute la tournée
+                long dur = (maListeTournee.get(i).getDateDebut().getTime() - lshift.get(k).getDateFin().getTime()) / 60000;//durée du shift si on ajoute la tournée
                 if ((lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0) && (this.getDureeMax() >= dur)) { //s.getDateFin() is after (i).getDateDebut() + check duree max du shift
                     // ajoute la tournee au shift
                     lshift.get(k).addTournee(maListeTournee.get(i));
-                    lshift.get(k).update();
                 } else {
                     k = k + 1;
                     lshift.add(new Shift(sol));
                     lshift.get(k).addTournee(maListeTournee.get(i));
-                    lshift.get(k).update();
                 }
 
             }
@@ -157,21 +155,28 @@ public class Instance implements Serializable {
             int validate = 0; //permet de savoir si la tournée active à été traité
             //
             for (int i = 0; i < nbTour; i++) {
-                 long dur = (maListeTournee.get(i).getDateDebut().getTime() - lshift.get(k).getDateFin().getTime())/60000;//durée du shift si on ajoute la tournée
-                if ((lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0) && (this.getDureeMax() >= dur)) { //s.getDateFin() is after (i).getDateDebut() + check duree max du shift
-                      // ajoute la tournee au shift
-                    validate = 1;
+                
+                //ici on verifie si on peut mettre la tournée à la suite du shift
+                if ((lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0)) { //s.getDateFin() est aprés (i).getDateDebut()
                     lshift.get(k).addTournee(maListeTournee.get(i));
-                    lshift.get(k).update();
+                    long dur = (maListeTournee.get(i).getDateDebut().getTime() - lshift.get(k).getDateFin().getTime()) / 60000;//durée du shift si on ajoute la tournée
+                    if (this.getDureeMax() >= dur) { //  check duree max du shift
+                        validate = 1;
+                    } else {
+                        lshift.get(k).getMesTournee().remove(lshift.get(k).getMesTournee().size() - 1);//retire le dernier element
+                    }
                 } else {
+                    //ici on verifie si on peut mettre la tournée au debut d'un shift précédemment créé
                     for (int u = 0; u < k; u++) {
-                        dur = (lshift.get(k).getDateDebut().getTime() - maListeTournee.get(i).getDateFin().getTime())/60000;
-                        if ((lshift.get(u).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0) && (this.getDureeMax() >= dur)) {
-                            // ajoute la tournee au shift
-                            validate = 1;
-                            lshift.get(u).addTournee(maListeTournee.get(i));
-                            lshift.get(u).update();
-                            break;
+                        if ((lshift.get(u).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0)) {
+
+                            long dur = (maListeTournee.get(i).getDateDebut().getTime() - lshift.get(k).getDateFin().getTime()) / 60000;//durée du shift si on ajoute la tournée
+                            if (this.getDureeMax() >= dur) {
+                                validate = 1;
+                                break;
+                            } else {
+                                lshift.get(k).getMesTournee().remove(lshift.get(k).getMesTournee().size() - 1);//retire le dernier element
+                            }
                         }
 
                     }
@@ -179,7 +184,6 @@ public class Instance implements Serializable {
                         k = k + 1;
                         lshift.add(new Shift(sol));
                         lshift.get(k).addTournee(maListeTournee.get(i));
-                        lshift.get(k).update();
                     }
 
                 }
@@ -208,7 +212,8 @@ public class Instance implements Serializable {
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(Object object
+    ) {
         // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Instance)) {
             return false;
