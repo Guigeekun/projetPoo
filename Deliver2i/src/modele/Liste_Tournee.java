@@ -57,7 +57,7 @@ public class Liste_Tournee extends javax.swing.JFrame {
         this.index = index;
         em = emf.createEntityManager();
         final EntityTransaction et = em.getTransaction();
-        Query query = this.em.createQuery("SELECT i FROM Instance AS i WHERE i. = :index", Instance.class);
+        Query query = this.em.createQuery("SELECT i FROM Instance AS i WHERE i.id = :index", Instance.class);
         query.setParameter("index", this.index);
         this.inst = (Instance) query.getSingleResult();
         maListeTournee = new ArrayList<>();
@@ -85,15 +85,11 @@ public class Liste_Tournee extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton3 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
-
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-        });
 
         jButton3.setText("Retour");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -101,20 +97,31 @@ public class Liste_Tournee extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3);
+
+        jButton1.setText("jButton1");
+
+        jButton2.setText("jButton2");
+
+        setPreferredSize(new java.awt.Dimension(600, 600));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Liste des tournées de l'instance");
-        getContentPane().add(jLabel1);
+        getContentPane().add(jLabel1, java.awt.BorderLayout.PAGE_START);
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        jList1.setMaximumSize(new java.awt.Dimension(340, 800));
         jScrollPane1.setViewportView(jList1);
 
-        getContentPane().add(jScrollPane1);
+        getContentPane().add(jScrollPane1, java.awt.BorderLayout.LINE_START);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -168,6 +175,8 @@ public class Liste_Tournee extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList<String> jList1;

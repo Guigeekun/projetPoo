@@ -50,10 +50,10 @@ public class Liste_Instance extends javax.swing.JFrame {
             et.begin();
             // creation d’une entite persistante
             InstanceReader instread7 = new InstanceReader("instance_6.csv");
-            InstanceReader instread8 = new InstanceReader("instance_7.csv");
-            InstanceReader instread9 = new InstanceReader("instance_8.csv");
-            InstanceReader instread10 = new InstanceReader("instance_9.csv");
-            InstanceReader instread11 = new InstanceReader("instance_10.csv");
+           InstanceReader instread8 = new InstanceReader("instance_7.csv");
+          //  InstanceReader instread9 = new InstanceReader("instance_8.csv");
+         //   InstanceReader instread10 = new InstanceReader("instance_9.csv");
+         //   InstanceReader instread11 = new InstanceReader("instance_10.csv");
 
             instread7.readInstance(em);
     //        instread8.readInstance(em);
