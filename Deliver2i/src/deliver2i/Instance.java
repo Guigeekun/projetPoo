@@ -157,7 +157,7 @@ public class Instance implements Serializable {
             for (int i = 0; i < nbTour; i++) {
                 
                 //ici on verifie si on peut mettre la tournée à la suite du shift
-                if ((lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0)) { //s.getDateFin() est aprés (i).getDateDebut()
+                if (lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0) { //s.getDateFin() est aprés (i).getDateDebut()
                     lshift.get(k).addTournee(maListeTournee.get(i));
                     //durée du shift si on ajoute la tournée
                     if (this.getDureeMax() >= lshift.get(k).duree()) { //  check duree max du shift
@@ -169,7 +169,7 @@ public class Instance implements Serializable {
                 } if (validate == 0) {
                     //ici on verifie si on peut mettre la tournée au debut d'un shift précédemment créé
                     for (int u = 0; u < k; u++) {
-                        if ((lshift.get(u).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0)) {
+                        if ((lshift.get(u).getDateDebut().compareTo(maListeTournee.get(i).getDateFin()) >= 0)) {
                             lshift.get(u).addTournee(maListeTournee.get(i));
                             if (this.getDureeMax() >= lshift.get(u).duree()) {
                                 validate = 1;

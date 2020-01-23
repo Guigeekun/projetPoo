@@ -90,7 +90,7 @@ public class ZoneGraphique extends JPanel {
         Point p22 = new Point((int) ((this.getSize().width / 1.71) + 20), 18);
         Droite d11 = new Droite(Color.BLACK, p21, p22); // Représente 22h
         
-        
+        collectionDesFormes.add(d1);
         collectionDesFormes.add(d2);
         collectionDesFormes.add(d3);
         collectionDesFormes.add(d4);
