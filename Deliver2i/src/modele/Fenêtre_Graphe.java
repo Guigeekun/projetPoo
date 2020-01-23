@@ -139,6 +139,8 @@ public class Fenêtre_Graphe extends javax.swing.JFrame {
 
         jButton3.setText("Retour");
 
+        setPreferredSize(new java.awt.Dimension(1920, 1080));
+
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Graphe Shift");
 
