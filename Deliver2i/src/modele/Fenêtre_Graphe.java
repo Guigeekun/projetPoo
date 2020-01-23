@@ -68,7 +68,7 @@ public class Fenêtre_Graphe extends javax.swing.JFrame {
         
         zg.addAxe();
         zg.construireShift(lshift,inst);
-        zg.paintComponent(zg.getGraphics());
+        zg.repaint();
 
     }
 
