@@ -38,12 +38,12 @@ public class Shift implements Serializable {
 
     private Solution solution;
 
-   // @JoinTable(
+    // @JoinTable(
     //        name = "Tournee_Shift", 
- // joinColumns = @JoinColumn(name = "id"), 
-  //inverseJoinColumns = @JoinColumn(name = "id"
-   //         )
-  //  )
+    // joinColumns = @JoinColumn(name = "id"), 
+    //inverseJoinColumns = @JoinColumn(name = "id"
+    //         )
+    //  )
     private List<Tournee> mesTournee;
 
 //=============Getters===================
@@ -66,7 +66,6 @@ public class Shift implements Serializable {
     public List<Tournee> getMesTournee() {
         return mesTournee;
     }
-    
 
 //==============Setters=======================
     public void setId(Long id) {
@@ -86,13 +85,13 @@ public class Shift implements Serializable {
     }
 
     public void addTournee(Tournee tourn) {
-        this.mesTournee.add(tourn); // pense à call this.update() aprés avoir ajouté une tournée
+        this.mesTournee.add(tourn); 
         if (tourn.getDateDebut().compareTo(this.dateDebut) < 0) {
-                this.dateDebut = tourn.getDateDebut();
+            this.dateDebut = tourn.getDateDebut();
         }
-         if (tourn.getDateFin().compareTo(this.dateFin) > 0) {
-                this.dateFin = tourn.getDateFin();
-            }
+        if (tourn.getDateFin().compareTo(this.dateFin) > 0) {
+            this.dateFin = tourn.getDateFin();
+        }
     }
 //============Constructors=======================
 
@@ -107,18 +106,18 @@ public class Shift implements Serializable {
         dateFin = fin;
         solution = solu;
     }
-    
+
     public Shift(Solution solu) {
-       
+
         Date dt = solu.getMonInstance().getDate();
-        Calendar c = Calendar.getInstance(); 
-        c.setTime(dt); 
+        Calendar c = Calendar.getInstance();
+        c.setTime(dt);
         c.add(Calendar.DATE, 1);
         dt = c.getTime();
-        dateDebut =  dt;
+        dateDebut = dt;
         dateFin = solu.getMonInstance().getDate(); //les valeurs sont arbitrairement inateniable
         solution = solu;
-        mesTournee =new LinkedList<>();
+        mesTournee = new LinkedList<>();
     }
 
 //=============Methodes====================
@@ -127,8 +126,23 @@ public class Shift implements Serializable {
         return a / 60000; //en minute
     }
 
-    public int tempsMort(EntityManager em) {
-        
+    public void update() { //permet de mettre à jour les date de debut et de fin à partir des tournée qui le compose
+        Date debut = this.mesTournee.get(0).getDateDebut();
+        Date fin = this.mesTournee.get(0).getDateFin();
+        for (int i = 1; i < mesTournee.size(); i++) {
+            if (this.mesTournee.get(i).getDateDebut().compareTo(this.dateDebut) < 0) {
+                debut = this.mesTournee.get(i).getDateDebut();
+            }
+            if (this.mesTournee.get(i).getDateFin().compareTo(this.dateFin) > 0) {
+                fin = this.mesTournee.get(i).getDateFin();
+            }
+        }
+        this.dateDebut = debut;
+        this.dateFin = fin;
+    }
+
+    public int tempsMort() {
+
         int sum = 0;
         for (Tournee test : this.mesTournee) {
             sum += test.duree();

@@ -159,34 +159,35 @@ public class Instance implements Serializable {
                 //ici on verifie si on peut mettre la tournée à la suite du shift
                 if ((lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0)) { //s.getDateFin() est aprés (i).getDateDebut()
                     lshift.get(k).addTournee(maListeTournee.get(i));
-                    long dur = (maListeTournee.get(i).getDateDebut().getTime() - lshift.get(k).getDateFin().getTime()) / 60000;//durée du shift si on ajoute la tournée
-                    if (this.getDureeMax() >= dur) { //  check duree max du shift
-                        validate = 1;
+                    //durée du shift si on ajoute la tournée
+                    if (this.getDureeMax() >= lshift.get(k).duree()) { //  check duree max du shift
+                        validate = 1; //la tournée a été traité
                     } else {
                         lshift.get(k).getMesTournee().remove(lshift.get(k).getMesTournee().size() - 1);//retire le dernier element
+                        lshift.get(k).update();//met à jour les date de debut et de fin
                     }
-                } else {
+                } if (validate == 0) {
                     //ici on verifie si on peut mettre la tournée au debut d'un shift précédemment créé
                     for (int u = 0; u < k; u++) {
                         if ((lshift.get(u).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0)) {
-
-                            long dur = (maListeTournee.get(i).getDateDebut().getTime() - lshift.get(k).getDateFin().getTime()) / 60000;//durée du shift si on ajoute la tournée
-                            if (this.getDureeMax() >= dur) {
+                            lshift.get(u).addTournee(maListeTournee.get(i));
+                            if (this.getDureeMax() >= lshift.get(u).duree()) {
                                 validate = 1;
                                 break;
                             } else {
-                                lshift.get(k).getMesTournee().remove(lshift.get(k).getMesTournee().size() - 1);//retire le dernier element
+                                lshift.get(u).getMesTournee().remove(lshift.get(u).getMesTournee().size() - 1);//retire le dernier element
+                                lshift.get(u).update();//met à jour les date de debut et de fin
                             }
                         }
 
-                    }
+                    }}
                     if (validate == 0) {
                         k = k + 1;
                         lshift.add(new Shift(sol));
                         lshift.get(k).addTournee(maListeTournee.get(i));
                     }
 
-                }
+               
                 validate = 0;
 
             }
@@ -194,6 +195,7 @@ public class Instance implements Serializable {
                 em.persist(maListeTournee.get(u));
             }
             for (int n = 0; n < lshift.size(); n++) {
+                lshift.get(n).update();
                 em.persist(lshift.get(n));
             }
             sol.calculCout(lshift);
