@@ -163,8 +163,7 @@ public class Instance implements Serializable {
                     if (this.getDureeMax() >= lshift.get(k).duree()) { //  check duree max du shift
                         validate = 1; //la tournée a été traité
                     } else {
-                        lshift.get(k).getMesTournee().remove(lshift.get(k).getMesTournee().size() - 1);//retire le dernier element
-                        lshift.get(k).update();//met à jour les date de debut et de fin
+                        lshift.get(k).removeTournee();//remove la dérniére tournée ajouté et update les Dates
                     }
                 } if (validate == 0) {
                     //ici on verifie si on peut mettre la tournée au debut d'un shift précédemment créé
@@ -175,8 +174,7 @@ public class Instance implements Serializable {
                                 validate = 1;
                                 break;
                             } else {
-                                lshift.get(u).getMesTournee().remove(lshift.get(u).getMesTournee().size() - 1);//retire le dernier element
-                                lshift.get(u).update();//met à jour les date de debut et de fin
+                                lshift.get(u).removeTournee();//remove la dérniére tournée ajouté et update les Dates
                             }
                         }
 
@@ -195,7 +193,6 @@ public class Instance implements Serializable {
                 em.persist(maListeTournee.get(u));
             }
             for (int n = 0; n < lshift.size(); n++) {
-                lshift.get(n).update();
                 em.persist(lshift.get(n));
             }
             sol.calculCout(lshift);

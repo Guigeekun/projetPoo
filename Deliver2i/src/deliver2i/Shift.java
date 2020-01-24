@@ -93,6 +93,22 @@ public class Shift implements Serializable {
             this.dateFin = tourn.getDateFin();
         }
     }
+    
+    public void removeTournee(){ //remove la DERNIéRE tournée ajouté
+        this.mesTournee.remove(mesTournee.size() - 1);
+        Date debut = this.mesTournee.get(0).getDateDebut();
+        Date fin = this.mesTournee.get(0).getDateFin();
+        for (int i = 0; i < mesTournee.size(); i++) {
+            if (this.mesTournee.get(i).getDateDebut().compareTo(this.dateDebut) < 0) {
+                debut = this.mesTournee.get(i).getDateDebut();
+            }
+            if (this.mesTournee.get(i).getDateFin().compareTo(this.dateFin) > 0) {
+                fin = this.mesTournee.get(i).getDateFin();
+            }
+        }
+        this.dateDebut = debut;
+        this.dateFin = fin;
+    }
 //============Constructors=======================
 
     public Shift() {
@@ -113,7 +129,7 @@ public class Shift implements Serializable {
         Calendar c = Calendar.getInstance();
         c.setTime(dt);
         c.add(Calendar.DATE, 1);
-        dt = c.getTime();
+        dt = c.getTime(); //ce paragraphe sert à ajouter un jour à la date de l'instance
         dateDebut = dt;
         dateFin = solu.getMonInstance().getDate(); //les valeurs sont arbitrairement inateniable
         solution = solu;
@@ -129,8 +145,8 @@ public class Shift implements Serializable {
     public void update() { //permet de mettre à jour les date de debut et de fin à partir des tournée qui le compose
         Date debut = this.mesTournee.get(0).getDateDebut();
         Date fin = this.mesTournee.get(0).getDateFin();
-        for (int i = 1; i < mesTournee.size(); i++) {
-            if (this.mesTournee.get(i).getDateDebut().compareTo(this.dateDebut) > 0) {
+        for (int i = 0; i < mesTournee.size(); i++) {
+            if (this.mesTournee.get(i).getDateDebut().compareTo(this.dateDebut) < 0) {
                 debut = this.mesTournee.get(i).getDateDebut();
             }
             if (this.mesTournee.get(i).getDateFin().compareTo(this.dateFin) > 0) {
