@@ -220,31 +220,31 @@ public class Instance implements Serializable {
 
     private List<Shift> ResoRecu(List<Shift> lshift, List<Tournee> ltournee, int i, Solution sol) {
         //i défini le shift "actif
-        int k = 0;
         if (ltournee.isEmpty()) {
             return (lshift);
         } else {
-            //cherche le plus proche (datefin to datedebut)
-            for (k = 0; k < ltournee.size(); k++) {
+            //cherche la plus proche tourné  (datefin to datedebut)
+            for (int k = 0; k < ltournee.size(); k++) {
                 if (ltournee.get(k).getDateDebut().getTime() - lshift.get(i).getDateFin().getTime() >= 0) {
-                    break;
+                    if (this.getDureeMax() >= (ltournee.get(k).getDateFin().getTime() - lshift.get(i).getDateDebut().getTime()) / 60000) {
+                        //add au shift
+                        //remove la tournee du tab
+                        lshift.get(i).addTournee(ltournee.get(k));
+                        ltournee.remove(k);
+                        
+                    } else {//SINON crée un new shift
+                        lshift.add(new Shift(sol));
+                        i++;
+                        lshift.get(i).addTournee(ltournee.get(k));
+                        ltournee.remove(k);
+
+                    }
+
+                    return (ResoRecu(lshift, ltournee, i, sol));
                 }
             }
-            //IF temps max respecté
-            if (this.getDureeMax() >= (ltournee.get(k).getDateFin().getTime() - lshift.get(i).getDateDebut().getTime()) / 60000) {
-                //add au shift
-                //remove la tournee du tab
-                lshift.get(i).addTournee(ltournee.get(k));
-                ltournee.remove(k);
 
-            } else {//SINON crée un new shift
-                lshift.add(new Shift(sol));
-                i++;
-
-            }
-
-            return (ResoRecu(lshift, ltournee, i, sol));
-        }
+        }return (ResoRecu(lshift, ltournee, i, sol));
     }
 
     @Override
