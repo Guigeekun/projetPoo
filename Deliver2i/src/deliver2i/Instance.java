@@ -158,23 +158,24 @@ public class Instance implements Serializable {
                 
                 //ici on verifie si on peut mettre la tournée à la suite du shift
                 if (lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) < 0) { //s.getDateFin() est aprés (i).getDateDebut()
-                    lshift.get(k).addTournee(maListeTournee.get(i));
                     //durée du shift si on ajoute la tournée
-                    if (this.getDureeMax() >= lshift.get(k).duree()) { //  check duree max du shift
+                    if (this.getDureeMax() >= (maListeTournee.get(i).getDateFin().getTime()-lshift.get(k).getDateDebut().getTime())/60000) { //  check duree max du shift
                         validate = 1; //la tournée a été traité
+                        lshift.get(k).addTournee(maListeTournee.get(i));
                     } else {
-                        lshift.get(k).removeTournee();//remove la dérniére tournée ajouté et update les Dates
+ 
                     }
                 } if (validate == 0) {
                     //ici on verifie si on peut mettre la tournée au debut d'un shift précédemment créé
                     for (int u = 0; u < k; u++) {
                         if ((lshift.get(u).getDateDebut().compareTo(maListeTournee.get(i).getDateFin()) > 0)) {
-                            lshift.get(u).addTournee(maListeTournee.get(i));
-                            if (this.getDureeMax() >= lshift.get(u).duree()) {
+                            
+                            if (this.getDureeMax() >= (lshift.get(k).getDateDebut().getTime()-maListeTournee.get(i).getDateFin().getTime())/60000) {
                                 validate = 1;
+                                lshift.get(u).addTournee(maListeTournee.get(i));
                                 break;
                             } else {
-                                lshift.get(u).removeTournee();//remove la dérniére tournée ajouté et update les Dates
+                                
                             }
                         }
 
