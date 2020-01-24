@@ -100,7 +100,7 @@ public class Instance implements Serializable {
 
 //===============Methodes==============================
     public void Resolution1(EntityManager em) throws ClassNotFoundException, SQLException {
-        List<Shift> lshift = new LinkedList<>();
+       List<Shift> lshift = new LinkedList<>();
         final EntityTransaction et = em.getTransaction();
         try {
             et.begin();
@@ -112,19 +112,20 @@ public class Instance implements Serializable {
             int nbTour = maListeTournee.size();
             lshift.add(new Shift(sol));
             int k = 0; //k désigne l'index "actif" des shifts
-
+            //
             for (int i = 0; i < nbTour; i++) {
-                long dur = (maListeTournee.get(i).getDateDebut().getTime() - lshift.get(k).getDateFin().getTime()) / 60000;//durée du shift si on ajoute la tournée
-                if ((lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) <= 0) && (this.getDureeMax() >= dur)) { //s.getDateFin() is after (i).getDateDebut() + check duree max du shift
-                    // ajoute la tournee au shift
-                    lshift.get(k).addTournee(maListeTournee.get(i));
+                
+                //ici on verifie si on peut mettre la tournée à la suite du shift
+                if (lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) < 0 && 
+                        this.getDureeMax() >= (maListeTournee.get(i).getDateFin().getTime()-lshift.get(k).getDateDebut().getTime())/60000) { //s.getDateFin() est aprés (i).getDateDebut()
+                    //durée du shift si on ajoute la tournée//  check duree max du shift
+                        lshift.get(k).addTournee(maListeTournee.get(i));
                 } else {
-                    k = k + 1;
-                    lshift.add(new Shift(sol));
-                    lshift.get(k).addTournee(maListeTournee.get(i));
-                }
-
-            }
+                                 k = k + 1;
+                        lshift.add(new Shift(sol));
+                        lshift.get(k).addTournee(maListeTournee.get(i));
+                            }
+                        }
             for (int u = 0; u < nbTour; u++) {
                 em.persist(maListeTournee.get(u));
             }
@@ -133,9 +134,9 @@ public class Instance implements Serializable {
             }
             sol.calculCout(lshift);
             em.persist(sol);
-            et.commit();
+            em.getTransaction().commit();
         } catch (Exception ex) {
-            et.rollback();
+            em.getTransaction().rollback();
         }
     }
 
@@ -152,44 +153,26 @@ public class Instance implements Serializable {
             int nbTour = maListeTournee.size();
             lshift.add(new Shift(sol));
             int k = 0; //k désigne l'index "actif" des shifts
-            int validate = 0; //permet de savoir si la tournée active à été traité
-            //
             for (int i = 0; i < nbTour; i++) {
                 
                 //ici on verifie si on peut mettre la tournée à la suite du shift
-                if (lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) < 0) { //s.getDateFin() est aprés (i).getDateDebut()
-                    //durée du shift si on ajoute la tournée
-                    if (this.getDureeMax() >= (maListeTournee.get(i).getDateFin().getTime()-lshift.get(k).getDateDebut().getTime())/60000) { //  check duree max du shift
-                        validate = 1; //la tournée a été traité
+                if (lshift.get(k).getDateFin().compareTo(maListeTournee.get(i).getDateDebut()) < 0 && 
+                        this.getDureeMax() >= (maListeTournee.get(i).getDateFin().getTime()-lshift.get(k).getDateDebut().getTime())/60000) { //s.getDateFin() est aprés (i).getDateDebut()
+                    //durée du shift si on ajoute la tournée//  check duree max du shift
                         lshift.get(k).addTournee(maListeTournee.get(i));
-                    } else {
- 
-                    }
-                } if (validate == 0) {
+                } else {
                     //ici on verifie si on peut mettre la tournée au debut d'un shift précédemment créé
-                    for (int u = 0; u < k; u++) {
-                        if ((lshift.get(u).getDateDebut().compareTo(maListeTournee.get(i).getDateFin()) > 0)) {
-                            
-                            if (this.getDureeMax() >= (lshift.get(k).getDateDebut().getTime()-maListeTournee.get(i).getDateFin().getTime())/60000) {
-                                validate = 1;
-                                lshift.get(u).addTournee(maListeTournee.get(i));
-                                break;
+                        if ((lshift.get(k).getDateDebut().compareTo(maListeTournee.get(i).getDateFin()) > 0 && 
+                                this.getDureeMax() >= (lshift.get(k).getDateDebut().getTime()-maListeTournee.get(i).getDateFin().getTime())/60000)) {
+                                lshift.get(k).addTournee(maListeTournee.get(i));
                             } else {
-                                
+                                 k = k + 1;
+                        lshift.add(new Shift(sol));
+                        lshift.get(k).addTournee(maListeTournee.get(i));
                             }
                         }
 
-                    }}
-                    if (validate == 0) {
-                        k = k + 1;
-                        lshift.add(new Shift(sol));
-                        lshift.get(k).addTournee(maListeTournee.get(i));
                     }
-
-               
-                validate = 0;
-
-            }
             for (int u = 0; u < nbTour; u++) {
                 em.persist(maListeTournee.get(u));
             }
