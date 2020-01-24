@@ -192,14 +192,17 @@ public class Instance implements Serializable {
         final EntityTransaction et = em.getTransaction();
         try {
             et.begin();
-            Query query = em.createQuery("select i from Tournee AS i WHERE i.monInstance = :inst", Tournee.class);
+            Query query = em.createQuery("select i from Tournee AS i WHERE i.monInstance = :inst ORDER BY i.dateDebut", Tournee.class);
             query.setParameter("inst", this);
             List<Tournee> maListeTournee = query.getResultList();
             Solution sol = new Solution(0.0, this); //le cout est (pour l'instant) fixé à 0
 
             int nbTour = maListeTournee.size();
+            lshift.add(new Shift(sol));
+            lshift.get(0).addTournee(maListeTournee.get(0));
+            maListeTournee.remove(0);
 
-            lshift = ResoRecu3(lshift);
+            lshift = ResoRecu(lshift, maListeTournee, 0, sol);
 
             for (int u = 0; u < nbTour; u++) {
                 em.persist(maListeTournee.get(u));
@@ -215,11 +218,32 @@ public class Instance implements Serializable {
         }
     }
 
-    private List<Shift> ResoRecu3(List<Shift> lshift) {
-        if (lshift.size() == 0) {
+    private List<Shift> ResoRecu(List<Shift> lshift, List<Tournee> ltournee, int i, Solution sol) {
+        //i défini le shift "actif
+        int k = 0;
+        if (ltournee.isEmpty()) {
             return (lshift);
         } else {
-            return (ResoRecu3(lshift));
+            //cherche le plus proche (datefin to datedebut)
+            for (k = 0; k < ltournee.size(); k++) {
+                if (ltournee.get(k).getDateDebut().getTime() - lshift.get(i).getDateFin().getTime() >= 0) {
+                    break;
+                }
+            }
+            //IF temps max respecté
+            if (this.getDureeMax() >= (ltournee.get(k).getDateFin().getTime() - lshift.get(i).getDateDebut().getTime()) / 60000) {
+                //add au shift
+                //remove la tournee du tab
+                lshift.get(i).addTournee(ltournee.get(k));
+                ltournee.remove(k);
+
+            } else {//SINON crée un new shift
+                lshift.add(new Shift(sol));
+                i++;
+
+            }
+
+            return (ResoRecu(lshift, ltournee, i, sol));
         }
     }
 
