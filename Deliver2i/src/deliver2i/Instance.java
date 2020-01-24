@@ -220,29 +220,31 @@ public class Instance implements Serializable {
 
     private List<Shift> ResoRecu(List<Shift> lshift, List<Tournee> ltournee, int i, Solution sol) {
         //i défini le shift "actif
+        Tournee foundTour=null;
+        int index;
         if (ltournee.isEmpty()) {
             return (lshift);
         } else {
             //cherche la plus proche tourné  (datefin to datedebut)
             for (int k = 0; k < ltournee.size(); k++) {
                 if (ltournee.get(k).getDateDebut().getTime() - lshift.get(i).getDateFin().getTime() >= 0) {
-                    if (this.getDureeMax() >= (ltournee.get(k).getDateFin().getTime() - lshift.get(i).getDateDebut().getTime()) / 60000) {
+                        foundTour = ltournee.get(k);
+                        ltournee.remove(k);
+                    }
+            }
+            if (this.getDureeMax() >= (foundTour.getDateFin().getTime() - lshift.get(i).getDateDebut().getTime()) / 60000) {
                         //add au shift
                         //remove la tournee du tab
-                        lshift.get(i).addTournee(ltournee.get(k));
-                        ltournee.remove(k);
+                        lshift.get(i).addTournee(foundTour);         
                         
                     } else {//SINON crée un new shift
                         lshift.add(new Shift(sol));
                         i++;
-                        lshift.get(i).addTournee(ltournee.get(k));
-                        ltournee.remove(k);
-
-                    }
+                        lshift.get(i).addTournee(foundTour);
 
                     return (ResoRecu(lshift, ltournee, i, sol));
                 }
-            }
+            
 
         }return (ResoRecu(lshift, ltournee, i, sol));
     }
