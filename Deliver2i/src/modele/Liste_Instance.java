@@ -50,16 +50,16 @@ public class Liste_Instance extends javax.swing.JFrame {
             et.begin();
             // creation d’une entite persistante
             InstanceReader instread7 = new InstanceReader("instance_6.csv");
-           InstanceReader instread8 = new InstanceReader("instance_7.csv");
-          //  InstanceReader instread9 = new InstanceReader("instance_8.csv");
-         //   InstanceReader instread10 = new InstanceReader("instance_9.csv");
-         //   InstanceReader instread11 = new InstanceReader("instance_10.csv");
+            InstanceReader instread8 = new InstanceReader("instance_7.csv");
+            //  InstanceReader instread9 = new InstanceReader("instance_8.csv");
+            //   InstanceReader instread10 = new InstanceReader("instance_9.csv");
+            //   InstanceReader instread11 = new InstanceReader("instance_10.csv");
 
             instread7.readInstance(em);
-    //        instread8.readInstance(em);
-     //       instread9.readInstance(em);
-    //       instread10.readInstance(em);
-    //        instread11.readInstance(em);
+            //        instread8.readInstance(em);
+            //       instread9.readInstance(em);
+            //       instread10.readInstance(em);
+            //        instread11.readInstance(em);
             et.commit();
             remplirListeInstance();
 
@@ -201,31 +201,37 @@ public class Liste_Instance extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         int index = jList1.getSelectedIndex() + 1;
-        System.out.println("J 'ai sélectionné l'instance " + index);
-        em.getTransaction().begin();
+        if (index == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Aucune instance n'a été sélectionnée!!",
+                    "Message",
+                    JOptionPane.INFORMATION_MESSAGE);
 
-        // On commence par supprimer les tournées qui appartiennent à l'instance
-        Query query = this.em.createQuery("Delete  from  Tournee t WHERE t.monInstance.id = :id");
-        query.setParameter("id", index);
-        query.executeUpdate();
-        
-        //et les solutions
-        Query query3 = this.em.createQuery("Delete  from  Solution s WHERE s.monInstance.id = :id");
-        query3.setParameter("id", index);
-        query3.executeUpdate();
-        
-        Query query4 = this.em.createQuery("Delete  from  Shift s WHERE s.solution.id = :id");
-        query4.setParameter("id", index);
-        query4.executeUpdate();
-        
-        // Puis on exécute une nouvelle requête pour supprimer l'instance
-        Query query2 = this.em.createQuery("Delete from Instance i WHERE i.id = :id");
-        query2.setParameter("id", index);
-        query2.executeUpdate();
-        em.getTransaction().commit();
-        remplirListeInstance();
-        //System.out.println("J'ai supprimé l'instance " + index);
+        } else {
+            System.out.println("J 'ai sélectionné l'instance " + index);
+            em.getTransaction().begin();
 
+            // On commence par supprimer les tournées qui appartiennent à l'instance
+            Query query = this.em.createQuery("Delete  from  Tournee t WHERE t.monInstance.id = :id");
+            query.setParameter("id", index);
+            query.executeUpdate();
+
+            //et les solutions
+            Query query3 = this.em.createQuery("Delete  from  Solution s WHERE s.monInstance.id = :id");
+            query3.setParameter("id", index);
+            query3.executeUpdate();
+
+            Query query4 = this.em.createQuery("Delete  from  Shift s WHERE s.solution.id = :id");
+            query4.setParameter("id", index);
+            query4.executeUpdate();
+
+            // Puis on exécute une nouvelle requête pour supprimer l'instance
+            Query query2 = this.em.createQuery("Delete from Instance i WHERE i.id = :id");
+            query2.setParameter("id", index);
+            query2.executeUpdate();
+            em.getTransaction().commit();
+            remplirListeInstance();
+            //System.out.println("J'ai supprimé l'instance " + index);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
