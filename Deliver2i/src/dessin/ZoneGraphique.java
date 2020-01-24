@@ -24,6 +24,9 @@ import javax.swing.JPanel;
 public class ZoneGraphique extends JPanel {
 
     private LinkedList<Forme> collectionDesFormes;
+    private LinkedList<Point> listePointA;
+    private LinkedList<Point> listePointB;
+    private LinkedList<Droite> listeDroite;
 
     public ZoneGraphique() {
         this.setBackground(WHITE);
@@ -38,6 +41,7 @@ public class ZoneGraphique extends JPanel {
     cette marge est HARD CODé, si on trouve le temps : à fix
      */
     public void addAxe() {
+
         super.paintComponent(this.getGraphics());
 
         Point p1 = new Point(20, 20);
@@ -51,56 +55,28 @@ public class ZoneGraphique extends JPanel {
         System.out.println("longueur axe:" + this.getSize().width);
         // Graduation
 
-        Point p7 = new Point((this.getSize().width / 4) + 20, 10);
-        Point p8 = new Point((this.getSize().width / 4) + 20, 18);
-        Droite d4 = new Droite(Color.ORANGE, p7, p8);// représente 6h
+        listePointA = new LinkedList<>();// représente la liste des points d'origines
+        listePointB = new LinkedList<>();// représente la liste des points de destinations
+        listeDroite = new LinkedList<>();
+        for (int i = 2; i < 24; i = i + 2) {
+            //Création des points des graduations
+            listePointA.add(new Point((((this.getSize().width) * i) / 24) + 20, 20));
+            listePointB.add(new Point((((this.getSize().width) * i) / 24) + 20, this.getSize().height));
 
-        Point p9 = new Point((this.getSize().width / 3) + 20, 10);
-        Point p10 = new Point((this.getSize().width / 3) + 20, 18);
-        Droite d5 = new Droite(Color.MAGENTA, p9, p10);//représente 8h
+            //Création des droites
+        }
 
-        Point p11 = new Point((int) ((this.getSize().width / 2.4) + 20), 10);
-        Point p12 = new Point((int) ((this.getSize().width / 2.4) + 20), 18);
-        Droite d6 = new Droite(Color.MAGENTA, p11, p12);//représente 10h
+        for (int j = 0; j < listePointA.size(); j++) {
+            System.out.println("Point A:" + listePointA.get(j));
+            listeDroite.add(new Droite(Color.BLACK, listePointA.get(j), listePointB.get(j)));
+            collectionDesFormes.add(listeDroite.get(j));
+        }
+        System.out.println(listePointA.toString());
+        System.out.println(listePointB.toString());
 
-        Point p5 = new Point((this.getSize().width / 2) + 20, 10);
-        Point p6 = new Point((this.getSize().width / 2) + 20, 18);
-        Droite d3 = new Droite(Color.RED, p5, p6); // Représente 12h
-
-        Point p13 = new Point((int) ((this.getSize().width / 1.71) + 20), 10);
-        Point p14 = new Point((int) ((this.getSize().width / 1.71) + 20), 18);
-        Droite d7 = new Droite(Color.BLACK, p13, p14); // Représente 14h
-        
-        
-        Point p15 = new Point((int) ((this.getSize().width / 1.71) + 20), 10);
-        Point p16 = new Point((int) ((this.getSize().width / 1.71) + 20), 18);
-        Droite d8 = new Droite(Color.BLACK, p15, p16); // Représente 16h
-        
-        
-        Point p17 = new Point((int) ((this.getSize().width / 1.5) + 20), 10);
-        Point p18 = new Point((int) ((this.getSize().width / 1.5) + 20), 18);
-        Droite d9 = new Droite(Color.BLACK, p17, p18); // Représente 17h
-        
-        
-        Point p19 = new Point((int) ((this.getSize().width / 1.33) + 20), 10);
-        Point p20 = new Point((int) ((this.getSize().width / 1.33) + 20), 18);
-        Droite d10 = new Droite(Color.BLACK, p19, p20); // Représente 20h
-        
-        Point p21 = new Point((int) ((this.getSize().width / 1.71) + 20), 10);
-        Point p22 = new Point((int) ((this.getSize().width / 1.71) + 20), 18);
-        Droite d11 = new Droite(Color.BLACK, p21, p22); // Représente 22h
         
         collectionDesFormes.add(d1);
         collectionDesFormes.add(d2);
-        collectionDesFormes.add(d3);
-        collectionDesFormes.add(d4);
-        collectionDesFormes.add(d5);
-        collectionDesFormes.add(d6);
-        collectionDesFormes.add(d7);
-        collectionDesFormes.add(d8);
-        collectionDesFormes.add(d9);
-        collectionDesFormes.add(d10);
-        collectionDesFormes.add(d11);
 
     }
 

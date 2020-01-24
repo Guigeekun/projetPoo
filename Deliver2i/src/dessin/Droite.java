@@ -7,6 +7,7 @@ package dessin;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import javax.swing.JLabel;
 
 /**
  *
@@ -16,6 +17,7 @@ public class Droite extends Forme {
 
     private Point p1;
     private Point p2;
+     
 
     public Droite(Color macouleur,Point p1,Point p2){
         super(macouleur);
@@ -23,6 +25,7 @@ public class Droite extends Forme {
         this.p2=p2;
     }
 
+  
  
     @Override
     public void seDessiner(Graphics g) {
