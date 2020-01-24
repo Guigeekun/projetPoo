@@ -204,9 +204,6 @@ public class Instance implements Serializable {
 
             lshift = ResoRecu(lshift, maListeTournee, 0, sol);
 
-            for (int u = 0; u < nbTour; u++) {
-                em.persist(maListeTournee.get(u));
-            }
             for (int n = 0; n < lshift.size(); n++) {
                 em.persist(lshift.get(n));
             }
