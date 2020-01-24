@@ -87,13 +87,6 @@ public class Fenêtre_Graphe extends javax.swing.JFrame {
     
         repaint();
         
-        /*final EntityTransaction et = em.getTransaction();
-        Query query = this.em.createQuery("Select s FROM Shift AS s WHERE s.solution = :soluce ", Shift.class);
-        query.setParameter("soluce", this.soluce);
-        lShift = query.getResultList();
-        int taille = lShift.size();
-        System.out.println("Taille liste: " + taille);
-        int hauteurRec = (this.tailleY - 40) / taille;*/
 
     }
     
