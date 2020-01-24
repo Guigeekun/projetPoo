@@ -27,15 +27,12 @@ public class Fenêtre extends javax.swing.JFrame {
     }
 
     private void inititalisationFenetre() {
-       
+
         this.setVisible(true);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setTitle("Fenêtre d'acceuil");
-        this.getContentPane().setBackground(new Color(0,0,26));
-        
-        
-        
+        this.getContentPane().setBackground(new Color(0, 0, 26));
 
     }
 
@@ -106,7 +103,7 @@ public class Fenêtre extends javax.swing.JFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-     
+
     }//GEN-LAST:event_jButton2MouseClicked
 
     /**

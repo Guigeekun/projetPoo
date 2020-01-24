@@ -198,9 +198,9 @@ public class Instance implements Serializable {
             Solution sol = new Solution(0.0, this); //le cout est (pour l'instant) fixé à 0
 
             int nbTour = maListeTournee.size();
-            
+
             lshift = ResoRecu3(lshift);
-         
+
             for (int u = 0; u < nbTour; u++) {
                 em.persist(maListeTournee.get(u));
             }
@@ -214,12 +214,12 @@ public class Instance implements Serializable {
             em.getTransaction().rollback();
         }
     }
-    
-    private List<Shift> ResoRecu3(List<Shift> lshift){
-        if(lshift.size()==0){
+
+    private List<Shift> ResoRecu3(List<Shift> lshift) {
+        if (lshift.size() == 0) {
             return (lshift);
-        }else{
-            return(ResoRecu3(lshift));
+        } else {
+            return (ResoRecu3(lshift));
         }
     }
 

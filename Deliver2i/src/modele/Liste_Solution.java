@@ -43,7 +43,6 @@ public class Liste_Solution extends javax.swing.JFrame {
         initComponents();
         maListeSolution = new ArrayList();
         remplirListeSolution();
-        
 
     }
 
@@ -51,7 +50,7 @@ public class Liste_Solution extends javax.swing.JFrame {
         initialisationFenetre();
         initComponents();
         maListeSolution = new ArrayList<>();
-        this.inst= inst;
+        this.inst = inst;
         remplirListeSolution();
 
     }
@@ -59,7 +58,7 @@ public class Liste_Solution extends javax.swing.JFrame {
     public Liste_Solution(int index, EntityManagerFactory emf) {
         initialisationFenetre();
         initComponents();
-        this.jLabel1.setText("Solution de l'instance "+index);
+        this.jLabel1.setText("Solution de l'instance " + index);
         this.index = index;
         em = emf.createEntityManager();
         final EntityTransaction et = em.getTransaction();
@@ -68,14 +67,14 @@ public class Liste_Solution extends javax.swing.JFrame {
         this.inst = (Instance) query.getSingleResult();
         maListeSolution = new ArrayList<>();
         remplirListeSolution();
-       
+
     }
 
     private void initialisationFenetre() {
         this.setVisible(true);
         this.setLocationRelativeTo(null);
         this.setTitle("Solution");
-        this.getContentPane().setBackground(new Color(0,0,26));
+        this.getContentPane().setBackground(new Color(0, 0, 26));
         this.setResizable(false);
 
     }
@@ -205,7 +204,7 @@ public class Liste_Solution extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
-       
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -215,25 +214,27 @@ public class Liste_Solution extends javax.swing.JFrame {
             Logger.getLogger(Solution.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(Solution.class.getName()).log(Level.SEVERE, null, ex);
-        }remplirListeSolution();
+        }
+        remplirListeSolution();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void Resoudre2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Resoudre2ActionPerformed
-            try {
+        try {
             inst.Resolution2(em);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Solution.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(Solution.class.getName()).log(Level.SEVERE, null, ex);
-        }remplirListeSolution();
+        }
+        remplirListeSolution();
     }//GEN-LAST:event_Resoudre2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       
-        index=jList1.getSelectedIndex();
-        System.out.println("je prend"+index);
-        JFrame f= new Fenêtre_Graphe(index+1,em);
-        
+
+        index = jList1.getSelectedIndex();
+        System.out.println("je prend" + index);
+        JFrame f = new Fenêtre_Graphe(index + 1, em);
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -287,7 +288,7 @@ public class Liste_Solution extends javax.swing.JFrame {
     private void remplirListeSolution() {
         em.getTransaction().begin();
         Query query = this.em.createQuery("select s from Solution AS s WHERE s.monInstance = :inst", Solution.class);
-        query.setParameter("inst", this.inst); 
+        query.setParameter("inst", this.inst);
         List<Solution> maListeSolution = query.getResultList();
         DefaultListModel defaut = new DefaultListModel();
 
@@ -302,7 +303,5 @@ public class Liste_Solution extends javax.swing.JFrame {
                 .commit();
 
     }
-    
+
 }
-
-

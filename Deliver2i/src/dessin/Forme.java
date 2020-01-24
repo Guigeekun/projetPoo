@@ -12,22 +12,18 @@ import java.awt.Graphics;
  *
  * @author PORTABLE
  */
+public abstract class Forme {
 
-    public abstract class Forme  {
     Color macouleur;
-    
-    public Forme(Color macouleur)
-    {
-        this.macouleur=macouleur;
+
+    public Forme(Color macouleur) {
+        this.macouleur = macouleur;
     }
 
     public Color getMacouleur() {
         return macouleur;
     }
 
-    
     public abstract void seDessiner(Graphics g);
-    
-}  
-    
 
+}

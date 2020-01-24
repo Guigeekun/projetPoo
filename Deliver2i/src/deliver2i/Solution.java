@@ -33,9 +33,8 @@ public class Solution implements Serializable {
 
     @JoinColumn(nullable = false)
     private Instance monInstance;
-    
+
 //==========Getter================================
-    
     public Long getId() {
         return id;
     }
@@ -51,37 +50,35 @@ public class Solution implements Serializable {
     public Instance getMonInstance() {
         return monInstance;
     }
-    
-//==========Constructor================================
 
+//==========Constructor================================
     public Solution() throws ClassNotFoundException, SQLException {
         this.cout = 0.0;
         this.monInstance = new Instance();
     }
-    
+
     public Solution(double cout, Instance inst) throws ClassNotFoundException, SQLException {
         this.cout = cout;
         this.monInstance = inst;
     }
 
 //==========Methode================================
-    public double calculCout(List<Shift> lshift){ // cette fonction n'est utilisé qu'à la creation de la solution
+    public double calculCout(List<Shift> lshift) { // cette fonction n'est utilisé qu'à la creation de la solution
         //on peut donc se permettre de demander la liste des shift de la solution
         double c = 0;
         int i;
         long d;
-        for (i=0;i<lshift.size();i++){
+        for (i = 0; i < lshift.size(); i++) {
             d = lshift.get(i).duree();
-            if(d<this.getMonInstance().getDureeMin()){
-                d=this.getMonInstance().getDureeMin();
+            if (d < this.getMonInstance().getDureeMin()) {
+                d = this.getMonInstance().getDureeMin();
             }
-            c+=d;
+            c += d;
         }
         this.cout = c;
-        return(cout);
+        return (cout);
     }
-    
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -106,6 +103,7 @@ public class Solution implements Serializable {
     public String toString() {
         return "Solution : " + monInstance + " cout=" + cout;
     }
+
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Solution sol1 = new Solution();
         System.out.println(sol1);

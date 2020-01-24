@@ -12,27 +12,20 @@ import javax.swing.JLabel;
  * @author PORTABLE
  */
 public class Point {
-  
+
     private int x;
     private int y;
-
 
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
-       
+
     }
-    
-    
-    
-    
-    
-    public Point(Point p1)
-    {
-        if(p1!=null)
-        {
-            this.x=p1.x;
-            this.y=p1.y;
+
+    public Point(Point p1) {
+        if (p1 != null) {
+            this.x = p1.x;
+            this.y = p1.y;
         }
     }
 
@@ -48,7 +41,5 @@ public class Point {
     public String toString() {
         return "Point{" + "x=" + x + ", y=" + y + '}';
     }
-    
-   
-}
 
+}

@@ -59,22 +59,22 @@ public class Fenêtre_Graphe extends javax.swing.JFrame {
         Query query = this.em.createQuery("Select s FROM Solution AS s WHERE s.id = :id ", Solution.class);
         query.setParameter("id", this.index);
         this.soluce = (Solution) query.getSingleResult();
-        
-        Instance inst=soluce.getMonInstance();
-        
+
+        Instance inst = soluce.getMonInstance();
+
         Query query2 = this.em.createQuery("Select s FROM Shift AS s WHERE s.solution = :solu ", Shift.class);
         query2.setParameter("solu", this.soluce);
         this.lshift = query2.getResultList();
-        
+
         zg.addAxe();
-        zg.construireShift(lshift,inst);
+        zg.construireShift(lshift, inst);
         zg.repaint();
 
     }
 
     private void initialisationFenetre() {
         this.zg = new ZoneGraphique();
-       
+
         this.add(zg);
         this.setVisible(true);
         this.setLocationRelativeTo(null);
@@ -84,14 +84,10 @@ public class Fenêtre_Graphe extends javax.swing.JFrame {
     }
 
     private void affichageSol() {
-    
+
         repaint();
-        
 
     }
-    
-    
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,6 +103,16 @@ public class Fenêtre_Graphe extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -144,6 +150,36 @@ public class Fenêtre_Graphe extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("2h");
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("4h");
+
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("6h");
+
+        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("8h");
+
+        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("12h");
+
+        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("10h");
+
+        jLabel8.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("14h");
+
+        jLabel9.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("16h");
+
+        jLabel10.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("18h");
+
+        jLabel11.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("20h");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -153,9 +189,31 @@ public class Fenêtre_Graphe extends javax.swing.JFrame {
                 .addComponent(jButton4)
                 .addGap(21, 21, 21))
             .addGroup(layout.createSequentialGroup()
-                .addGap(380, 380, 380)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(921, Short.MAX_VALUE))
+                .addGap(155, 155, 155)
+                .addComponent(jLabel2)
+                .addGap(112, 112, 112)
+                .addComponent(jLabel3)
+                .addGap(89, 89, 89)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel4)
+                        .addGap(104, 104, 104)
+                        .addComponent(jLabel5)
+                        .addGap(106, 106, 106)
+                        .addComponent(jLabel7)
+                        .addGap(106, 106, 106)
+                        .addComponent(jLabel6)
+                        .addGap(100, 100, 100)
+                        .addComponent(jLabel8)
+                        .addGap(104, 104, 104)
+                        .addComponent(jLabel9)
+                        .addGap(101, 101, 101)
+                        .addComponent(jLabel10)
+                        .addGap(105, 105, 105)
+                        .addComponent(jLabel11))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(159, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,6 +222,18 @@ public class Fenêtre_Graphe extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
+                        .addGap(7, 7, 7)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel11))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 602, Short.MAX_VALUE)
@@ -220,6 +290,16 @@ public class Fenêtre_Graphe extends javax.swing.JFrame {
     private javax.swing.JDialog jDialog1;
     private javax.swing.JDialog jDialog2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     // End of variables declaration//GEN-END:variables
 
 }

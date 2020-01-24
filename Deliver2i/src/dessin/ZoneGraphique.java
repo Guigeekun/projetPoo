@@ -74,7 +74,6 @@ public class ZoneGraphique extends JPanel {
         System.out.println(listePointA.toString());
         System.out.println(listePointB.toString());
 
-        
         collectionDesFormes.add(d1);
         collectionDesFormes.add(d2);
 

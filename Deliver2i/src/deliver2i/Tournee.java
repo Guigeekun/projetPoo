@@ -40,7 +40,7 @@ public class Tournee implements Serializable {
 
     private Instance monInstance;
 
-@ManyToMany(mappedBy = "mesTournee")
+    @ManyToMany(mappedBy = "mesTournee")
     private HashSet<Shift> monShift;
 
 //===========Setter=============================================================
@@ -121,7 +121,6 @@ public class Tournee implements Serializable {
         long a = this.dateFin.getTime() - this.dateDebut.getTime(); //getTime convert date to Timestamp
         return a / 60000; //en minute
     }
-
 
     @Override
     public int hashCode() {

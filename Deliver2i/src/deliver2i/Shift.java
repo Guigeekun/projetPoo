@@ -85,7 +85,7 @@ public class Shift implements Serializable {
     }
 
     public void addTournee(Tournee tourn) {
-        this.mesTournee.add(tourn); 
+        this.mesTournee.add(tourn);
         if (tourn.getDateDebut().compareTo(this.dateDebut) < 0) {
             this.dateDebut = tourn.getDateDebut();
         }
@@ -93,8 +93,8 @@ public class Shift implements Serializable {
             this.dateFin = tourn.getDateFin();
         }
     }
-    
-    public void removeTournee(){ //remove la DERNIéRE tournée ajouté
+
+    public void removeTournee() { //remove la DERNIéRE tournée ajouté
         this.mesTournee.remove(mesTournee.size() - 1);
         Date debut = this.mesTournee.get(0).getDateDebut();
         Date fin = this.mesTournee.get(0).getDateFin();
