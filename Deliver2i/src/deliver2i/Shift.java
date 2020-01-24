@@ -130,7 +130,7 @@ public class Shift implements Serializable {
         Date debut = this.mesTournee.get(0).getDateDebut();
         Date fin = this.mesTournee.get(0).getDateFin();
         for (int i = 1; i < mesTournee.size(); i++) {
-            if (this.mesTournee.get(i).getDateDebut().compareTo(this.dateDebut) < 0) {
+            if (this.mesTournee.get(i).getDateDebut().compareTo(this.dateDebut) > 0) {
                 debut = this.mesTournee.get(i).getDateDebut();
             }
             if (this.mesTournee.get(i).getDateFin().compareTo(this.dateFin) > 0) {
