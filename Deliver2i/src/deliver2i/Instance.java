@@ -232,6 +232,13 @@ public class Instance implements Serializable {
                         ltournee.remove(k);
                     }
             }
+            if(foundTour==null){
+                lshift.add(new Shift(sol));
+                i++;
+                lshift.get(i).addTournee(ltournee.get(0));
+                ltournee.remove(0);
+                return (ResoRecu(lshift, ltournee, i, sol));
+            }
             if (this.getDureeMax() >= (foundTour.getDateFin().getTime() - lshift.get(i).getDateDebut().getTime()) / 60000) {
                         //add au shift
                         //remove la tournee du tab
