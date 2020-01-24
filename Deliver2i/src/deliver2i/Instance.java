@@ -230,6 +230,7 @@ public class Instance implements Serializable {
                 if (ltournee.get(k).getDateDebut().getTime() - lshift.get(i).getDateFin().getTime() >= 0) {
                         foundTour = ltournee.get(k);
                         ltournee.remove(k);
+                        break;
                     }
             }
             if(foundTour==null){
